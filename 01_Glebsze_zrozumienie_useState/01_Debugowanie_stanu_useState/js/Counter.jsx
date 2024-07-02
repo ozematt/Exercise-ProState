@@ -19,10 +19,10 @@ export const Counter = () => {
   }, []);
 
   const handleDecrease = () => {
-    setCount((prevState) => prevState + 1);
+    setCount((prevState) => prevState - 1);
   };
   const handleIncrease = () => {
-    setCount((prevState) => prevState - 1);
+    setCount((prevState) => prevState + 1);
   };
 
   ////UI
