@@ -1,0 +1,4 @@
+exercises:
+    '01_Analiza kodu - Optymalizacja stanu': { max_points: 0, disabled: true }
+    '02_Tworzenie wydajnego komponentu': { max_points: 0, disabled: true }
+    '03_Optymalizacja wydajności z hookami': { max_points: 0, disabled: true }

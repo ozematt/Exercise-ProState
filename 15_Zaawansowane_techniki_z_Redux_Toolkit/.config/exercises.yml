@@ -1,0 +1,3 @@
+exercises:
+    '01_Implementacja createEntityAdapter': { max_points: 0, disabled: true }
+    '02_Tworzenie i Integracja Custom Middleware': { max_points: 0, disabled: true }

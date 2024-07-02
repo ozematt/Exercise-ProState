@@ -1,0 +1,4 @@
+exercises:
+    '01_Debugowanie formularzy z React Hook Form': { max_points: 0, disabled: true }
+    '02_Implementacja zaawansowanych technik w projekcie': { max_points: 0, disabled: true }
+    '03_Integracja React Hook Form w istniejącej aplikacji': { max_points: 0, disabled: true }

@@ -1,0 +1,25 @@
+{
+  "comments": [
+    {
+      "id": 1,
+      "author": "Jan Kowalski",
+      "content": "To jest bardzo interesujący komentarz."
+    },
+    {
+      "id": 2,
+      "author": "Anna Nowak",
+      "content": "Zgadzam się z przedmówcą!"
+    },
+    {
+      "id": 3,
+      "author": "Michał Zalewski",
+      "content": "Mam zupełnie inne zdanie na ten temat."
+    },
+    {
+      "id": 4,
+      "author": "Katarzyna Wójcik",
+      "content": "Ciekawe, jakie będą kolejne kroki w tej sprawie."
+
+    }
+  ]
+}

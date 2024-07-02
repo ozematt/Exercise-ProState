@@ -1,0 +1,4 @@
+exercises:
+    '01_Implementacja paginacji projekcie': { max_points: 0, disabled: true }
+    '02_Tworzenie Infinite Query w aplikacji': { max_points: 0, disabled: true }
+    '03_Optymalizacja strony e-commerce': { max_points: 0, disabled: true }

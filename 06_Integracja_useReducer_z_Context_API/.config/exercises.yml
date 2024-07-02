@@ -1,0 +1,3 @@
+exercises:
+    '01_Tworzenie własnego stanu globalnego': { max_points: 0, disabled: true }
+    '02_Debugowanie i optymalizacja': { max_points: 0, disabled: true }

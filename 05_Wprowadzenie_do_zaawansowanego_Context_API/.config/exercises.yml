@@ -1,0 +1,5 @@
+exercises:
+    '01_Optymalizacja wydajności z Context API': { max_points: 0, disabled: true }
+    '02_Tworzenie Contextu i Providerów': { max_points: 0, disabled: true }
+    '03_Wykorzystanie Contextu w komponencie': { max_points: 0, disabled: true }
+    '04_Integracja Context API w Istniejącej Aplikacji': { max_points: 0, disabled: true }

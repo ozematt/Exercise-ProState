@@ -1,0 +1,30 @@
+div {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    background: #eaeaea;
+    padding: 18px;
+    border-radius: 8px;
+}
+
+img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #eee;
+    }
+}

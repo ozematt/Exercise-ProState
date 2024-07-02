@@ -1,0 +1,3 @@
+exercises:
+    '01_Rozwiązywanie Problemów z Redux Toolkit': { max_points: 0, disabled: true }
+    '02_Implementacja Nowej Funkcjonalności z Redux Toolkit': { max_points: 0, disabled: true }

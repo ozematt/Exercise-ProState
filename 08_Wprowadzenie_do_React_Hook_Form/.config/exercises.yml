@@ -1,0 +1,4 @@
+exercises:
+    '01_Tworzenie prostego formularza': { max_points: 0, disabled: true }
+    '02_Zastosowanie React Hook Form w dynamicznych formularzach': { max_points: 0, disabled: true }
+    '03_Integracja React Hook Form w istniejącej aplikacji': { max_points: 0, disabled: true }

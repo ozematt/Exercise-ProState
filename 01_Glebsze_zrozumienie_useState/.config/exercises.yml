@@ -1,0 +1,4 @@
+exercises:
+    '01_Debugowanie stanu useState': { max_points: 0, disabled: true }
+    '02_Tworzenie i aktualizacja stanu': { max_points: 0, disabled: true }
+    '03_Kompleksowe zarządzenie stanem': { max_points: 0, disabled: true }

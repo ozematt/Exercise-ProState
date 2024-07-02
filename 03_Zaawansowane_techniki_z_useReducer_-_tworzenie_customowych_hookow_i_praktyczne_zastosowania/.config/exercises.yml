@@ -1,0 +1,4 @@
+exercises:
+    '01_Zarządzanie formularzami z useReducer': { max_points: 0, disabled: true }
+    '02_Custom hooks w interakcjach użytkownika': { max_points: 0, disabled: true }
+    '03_Debugowanie kodu z useReducer': { max_points: 0, disabled: true }

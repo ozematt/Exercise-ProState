@@ -1,0 +1,3 @@
+exercises:
+    '01_Implementacja walidacji z użyciem Zod w formularzu': { max_points: 0, disabled: true }
+    '02_Integracja React Hook Form w istniejącej aplikacji': { max_points: 0, disabled: true }

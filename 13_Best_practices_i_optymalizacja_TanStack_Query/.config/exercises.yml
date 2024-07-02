@@ -1,0 +1,3 @@
+exercises:
+    '01_Praktyczne zastosowanie Best Practices TanStack Query': { max_points: 0, disabled: true }
+    '02_Tworzenie złożonego formularza z React Router i TanStack Query': { max_points: 0, disabled: true }

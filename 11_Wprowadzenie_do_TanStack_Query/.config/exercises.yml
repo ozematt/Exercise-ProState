@@ -1,0 +1,5 @@
+exercises:
+    '01_Implementacja useQuery w praktyce': { max_points: 0, disabled: true }
+    '02_Zastosowanie useMutation': { max_points: 0, disabled: true }
+    '03_Praca z kluczowymi koncepcjami': { max_points: 0, disabled: true }
+    '04_Rozbudowa aplikacji z użyciem TanStack Query': { max_points: 0, disabled: true }
