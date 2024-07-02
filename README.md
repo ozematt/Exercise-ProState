@@ -1,0 +1,1 @@
+# ONL_FER_S_22_zaawansowane_zarzadzanie_stanem_aplikacji
