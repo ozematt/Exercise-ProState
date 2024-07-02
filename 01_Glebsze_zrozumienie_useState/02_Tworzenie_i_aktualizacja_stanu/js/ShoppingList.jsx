@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
 export const ShoppingList = () => {
+  ///DATA
   const [products, setProducts] = useState([]);
   const [item, setItem] = useState('');
   const [error, setError] = useState('');
 
+  ////LOGIC
   const handleProductAdd = (e) => {
     e.preventDefault();
     if (item) {
@@ -15,9 +17,12 @@ export const ShoppingList = () => {
       setError('Pole nie może być puste');
     }
   };
+
   const handleProductRemove = (id) => {
     setProducts((prevState) => prevState.filter((item) => item.id !== id));
   };
+
+  ////UI
   return (
     <>
       <form onSubmit={handleProductAdd}>
