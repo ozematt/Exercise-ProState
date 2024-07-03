@@ -10,6 +10,10 @@ const exercisePath = '02_Wprowadzenie_do_useReducer_i_jego_podstawowe_zastosowan
  * Don't change those lines below
  */
 export default defineConfig({
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+  },
   root: exercisePath,
   plugins: [react()],
 });
