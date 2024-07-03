@@ -3,7 +3,6 @@ import { useForm } from './hooks/use-form';
 export const Form = () => {
   const { formData, handleChange, handleSubmit, resetForm } = useForm({ name: '', email: '' });
 
-  // Dodaj do form event `onSubmit` z odpowiednią metodą
   return (
     <form onSubmit={handleSubmit}>
       <input

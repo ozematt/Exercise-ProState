@@ -28,7 +28,7 @@ export const useForm = (initialValues) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log('Form Data Submitted:', formData);
   };
 
   const resetForm = () => {
