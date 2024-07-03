@@ -9,13 +9,13 @@ const photos = [
 ];
 
 export const Gallery = () => {
-  const { currentPhoto, nextPhoto, prevPhoto } = useGallery(photos);
+  const { currentPhoto, handleNextPhoto, handlePrevPhoto } = useGallery(photos);
 
   return (
     <div>
-      <button onClick={prevPhoto}>Previous</button>
-      <img src={currentPhoto.src} alt={currentPhoto.alt} />
-      <button onClick={nextPhoto}>Next</button>
+      <button onClick={handlePrevPhoto}>Previous</button>
+      <img src={currentPhoto.url} alt={currentPhoto.alt} />
+      <button onClick={handleNextPhoto}>Next</button>
     </div>
   );
 };
