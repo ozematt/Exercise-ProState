@@ -10,7 +10,7 @@ const formReducer = (state, action) => {
     case ActionTypes.UPDATE_FIELD:
       return { ...state, [action.payload.name]: action.payload.value };
     case ActionTypes.RESET_FORM:
-      return initialState;
+      return action.payload; // reset state
     default:
       throw new Error('Unknown action');
   }
@@ -34,6 +34,7 @@ export const useForm = (initialValues) => {
   const resetForm = () => {
     dispatch({
       type: ActionTypes.RESET_FORM,
+      payload: initialValues,
     });
   };
 
