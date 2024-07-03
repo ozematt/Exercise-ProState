@@ -24,11 +24,16 @@ export const useForm = (initialValues) => {
     dispatch({ type: ActionTypes.UPDATE_FIELD,, payload: { name, value } });
   };
 
-  // Zaimplementuj funkcję handleSubmit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
 
-  // Dodaj funkcję resetującą formularz
+
   const resetForm = () => {
-    // Dodaj logikę resetowania formularza
+    dispatch({
+      type: ActionTypes.RESET_FORM,
+    });
   };
 
   return { formData, handleChange, resetForm };
