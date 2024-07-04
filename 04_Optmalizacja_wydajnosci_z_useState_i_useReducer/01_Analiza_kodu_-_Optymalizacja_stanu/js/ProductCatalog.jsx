@@ -70,10 +70,15 @@ const reducer = (state, action) => {
 };
 
 export const ProductCatalog = () => {
+  ////DATA
+  //useReducer
   const [state, dispatch] = useReducer(reducer, initialState);
   const { products, filter, sortOrder } = state;
+  //Debounce
   const debouncedFilter = useDebounce(filter, 300);
 
+  ////LOGIC
+  //dataFetch
   useEffect(() => {
     simulateFetchProducts().then((data) => {
       dispatch({
@@ -83,6 +88,7 @@ export const ProductCatalog = () => {
     });
   }, []);
 
+  //input filter change with useCallback
   const handleFilterChange = useCallback((e) => {
     dispatch({
       type: 'SET_FILTER',
@@ -90,6 +96,7 @@ export const ProductCatalog = () => {
     });
   }, []);
 
+  //select change with useCallback
   const handleSortOrderChange = useCallback((e) => {
     dispatch({
       type: 'SET_SORT_ORDER',
@@ -97,11 +104,13 @@ export const ProductCatalog = () => {
     });
   }, []);
 
+  //filtration with useMemo
   const filteredProducts = useMemo(
     () => products.filter((product) => product.category.toLowerCase().includes(debouncedFilter.toLowerCase())),
     [debouncedFilter, products]
   );
 
+  //sorting with useMemo
   const sortedProducts = useMemo(
     () =>
       filteredProducts.sort((a, b) => {
@@ -110,6 +119,7 @@ export const ProductCatalog = () => {
     [sortOrder, filteredProducts]
   );
 
+  ////UI
   return (
     <div>
       <input type="text" value={filter} onChange={handleFilterChange} placeholder="Filter by category..." />
