@@ -1,21 +1,45 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
+
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 export const UserManagementPanel = () => {
   const [comment, setComment] = useState('');
   const [commentsList, setCommentsList] = useState([]);
   const [filter, setFilter] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setCommentsList((prevState) => [...prevState, comment]);
-    setComment('');
-  };
+  const debouncedFilter = useDebounce(filter, 300);
+
+  console.log(debouncedFilter);
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (comment.trim().length !== 0) {
+        setCommentsList((prevState) => [...prevState, comment]);
+        setComment('');
+      }
+    },
+    [commentsList, comment]
+  );
 
   const filteredComments = useMemo(
-    () => commentsList.filter((comment) => comment.toLowerCase().includes(filter.toLowerCase())),
-    [filter, commentsList]
+    () => commentsList.filter((comment) => comment.toLowerCase().includes(debouncedFilter.toLowerCase())),
+    [debouncedFilter, commentsList]
   );
-  console.log(commentsList);
+
   return (
     <>
       <br />
@@ -49,7 +73,7 @@ export const UserManagementPanel = () => {
       <br />
       <input value={filter} type="text" onChange={(e) => setFilter(e.target.value)} placeholder="Filter.." />
 
-      <ul>{!filter ? commentsList.map((item, index) => <li key={index}>{item}</li>) : filteredComments}</ul>
+      <ul>{!debouncedFilter ? commentsList.map((item, index) => <li key={index}>{item}</li>) : filteredComments}</ul>
     </>
   );
 };
