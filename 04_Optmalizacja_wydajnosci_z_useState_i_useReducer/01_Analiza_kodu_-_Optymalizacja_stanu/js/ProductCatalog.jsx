@@ -104,7 +104,7 @@ export const ProductCatalog = () => {
 
   const sortedProducts = useMemo(
     () =>
-      [...filteredProducts].sort((a, b) => {
+      filteredProducts.sort((a, b) => {
         return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
       }),
     [sortOrder, filteredProducts]
