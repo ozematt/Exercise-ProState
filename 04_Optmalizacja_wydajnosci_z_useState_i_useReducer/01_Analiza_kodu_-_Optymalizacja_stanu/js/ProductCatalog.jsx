@@ -35,11 +35,16 @@ const simulateFetchProducts = () =>
   );
 
 // Reducer Function
-
 const ActionTypes = {
   SET_PRODUCTS: 'SET_PRODUCTS',
   SET_FILTER: 'SET_FILTER',
   SET_SORT_ORDER: 'SET_SORT_ORDER',
+};
+
+const initialState = {
+  products: [],
+  filter: '',
+  sortOrder: 'asc',
 };
 
 const reducer = (state, action) => {
@@ -65,11 +70,7 @@ const reducer = (state, action) => {
 };
 
 export const ProductCatalog = () => {
-  const [state, dispatch] = useReducer(reducer, {
-    products: [],
-    filter: '',
-    sortOrder: 'asc',
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { products, filter, sortOrder } = state;
   const debouncedFilter = useDebounce(filter, 300);
 
