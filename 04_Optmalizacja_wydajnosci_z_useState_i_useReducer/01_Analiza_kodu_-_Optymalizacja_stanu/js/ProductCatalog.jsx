@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useReducer } from 'react';
 
 //Debounce
 const useDebounce = (value, delay) => {
@@ -34,33 +34,70 @@ const simulateFetchProducts = () =>
     )
   );
 
+// Reducer Function
+const initialState = {
+  products: [],
+  filter: '',
+  sortOrder: 'asc',
+};
+
+const ActionTypes = {
+  SET_PRODUCTS: 'SET_PRODUCTS',
+  SET_FILTER: 'SET_FILTER',
+  SET_SORT_ORDER: 'SET_SORT_ORDER',
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case ActionTypes.SET_PRODUCTS:
+      return { ...state, products: action.payload };
+    case ActionTypes.SET_FILTER:
+      return { ...state, filter: action.payload };
+    case ActionTypes.SET_SORT_ORDER:
+      return { ...state, sortOrder: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const ProductCatalog = () => {
-  const [products, setProducts] = useState([]);
-  const [filter, setFilter] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { products, filter, sortOrder } = state;
   const debouncedFilter = useDebounce(filter, 500);
 
   useEffect(() => {
-    simulateFetchProducts().then((data) => setProducts(data));
+    simulateFetchProducts().then((data) => {
+      dispatch({
+        type: ActionTypes.SET_PRODUCTS,
+      });
+    });
+  }, []);
+
+  const handleFilterChange = useCallback((e) => {
+    dispatch({ type: 'SET_FILTER', payload: e.target.value });
+  }, []);
+
+  const handleSortOrderChange = useCallback((e) => {
+    dispatch({ type: 'SET_SORT_ORDER', payload: e.target.value });
   }, []);
 
   const filteredProducts = useMemo(
     () => products.filter((product) => product.category.toLowerCase().includes(debouncedFilter.toLowerCase())),
-    [debouncedFilter]
+    [debouncedFilter, products]
   );
-  const sortedProducts = filteredProducts.sort((a, b) => {
-    return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
-  });
+
+  const sortedProducts = useCallback(
+    () =>
+      filteredProducts.sort((a, b) => {
+        return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+      }),
+    [sortOrder, filteredProducts]
+  );
 
   return (
     <div>
-      <input
-        type="text"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-        placeholder="Filter by category..."
-      />
-      <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+      <input type="text" value={filter} onChange={handleFilterChange} placeholder="Filter by category..." />
+      <select value={sortOrder} onChange={handleSortOrderChange}>
         <option value="asc">Price: Low to High</option>
         <option value="desc">Price: High to Low</option>
       </select>
