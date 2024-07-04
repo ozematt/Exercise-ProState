@@ -4,8 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath =
-  '03_Zaawansowane_techniki_z_useReducer_-_tworzenie_customowych_hookow_i_praktyczne_zastosowania/03_Debugowanie_kodu_z_useReducer';
+const exercisePath = '04_Optmalizacja_wydajnosci_z_useState_i_useReducer/01_Analiza_kodu_-_Optymalizacja_stanu';
 
 /**
  * Don't change those lines below

@@ -1,5 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
+//Debounce
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
+//FetchDATA
 const simulateFetchProducts = () =>
   new Promise((resolve) =>
     setTimeout(
@@ -20,12 +38,17 @@ export const ProductCatalog = () => {
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
+  const debouncedFilter = useDebounce(filter, 500);
 
   useEffect(() => {
     simulateFetchProducts().then((data) => setProducts(data));
   }, []);
 
-  const filteredProducts = products.filter((product) => product.category.toLowerCase().includes(filter.toLowerCase()));
+  const filteredProducts = useMemo(
+    () => products.filter((product) => product.category.toLowerCase().includes(filter.toLowerCase())),
+    [debouncedFilter]
+  );
+
   const sortedProducts = filteredProducts.sort((a, b) => {
     return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
   });
