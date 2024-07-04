@@ -45,10 +45,9 @@ export const ProductCatalog = () => {
   }, []);
 
   const filteredProducts = useMemo(
-    () => products.filter((product) => product.category.toLowerCase().includes(filter.toLowerCase())),
+    () => products.filter((product) => product.category.toLowerCase().includes(debouncedFilter.toLowerCase())),
     [debouncedFilter]
   );
-
   const sortedProducts = filteredProducts.sort((a, b) => {
     return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
   });
