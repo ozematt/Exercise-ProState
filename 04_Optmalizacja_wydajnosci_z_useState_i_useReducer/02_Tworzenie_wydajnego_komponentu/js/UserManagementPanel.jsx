@@ -5,18 +5,16 @@ export const UserManagementPanel = () => {
   const [commentsList, setCommentsList] = useState([]);
   const [filter, setFilter] = useState('');
 
-  console.log(comment);
-
+  console.log(filter);
+  console.log(commentsList);
   const handleSubmit = (e) => {
     e.preventDefault();
     setCommentsList((prevState) => [...prevState, comment]);
+    setComment('');
   };
 
-  const filteredComments = useMemo(
-    () => commentsList.filter((comment) => comment.toLowerCase().includes(filter.toLowerCase())),
-    [filter]
-  );
-
+  const filteredComments = () => commentsList.filter((comment) => comment.toLowerCase().includes(filter.toLowerCase()));
+  console.log(filteredComments());
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -25,11 +23,7 @@ export const UserManagementPanel = () => {
         <br />
         <input value={filter} type="text" onChange={(e) => setFilter(e.target.value)} placeholder="Filter.." />
 
-        <ul>
-          {commentsList.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
+        <ul>{!filter ? commentsList.map((item, index) => <li key={index}>{item}</li>) : filteredComments()}</ul>
       </form>
     </>
   );
