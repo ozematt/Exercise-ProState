@@ -35,11 +35,6 @@ const simulateFetchProducts = () =>
   );
 
 // Reducer Function
-const initialState = {
-  products: [],
-  filter: '',
-  sortOrder: 'asc',
-};
 
 const ActionTypes = {
   SET_PRODUCTS: 'SET_PRODUCTS',
@@ -50,35 +45,55 @@ const ActionTypes = {
 const reducer = (state, action) => {
   switch (action.type) {
     case ActionTypes.SET_PRODUCTS:
-      return { ...state, products: action.payload };
+      return {
+        ...state,
+        products: action.payload,
+      };
     case ActionTypes.SET_FILTER:
-      return { ...state, filter: action.payload };
+      return {
+        ...state,
+        filter: action.payload,
+      };
     case ActionTypes.SET_SORT_ORDER:
-      return { ...state, sortOrder: action.payload };
+      return {
+        ...state,
+        sortOrder: action.payload,
+      };
     default:
       return state;
   }
 };
 
 export const ProductCatalog = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, {
+    products: [],
+    filter: '',
+    sortOrder: 'asc',
+  });
   const { products, filter, sortOrder } = state;
-  const debouncedFilter = useDebounce(filter, 500);
+  const debouncedFilter = useDebounce(filter, 300);
 
   useEffect(() => {
     simulateFetchProducts().then((data) => {
       dispatch({
         type: ActionTypes.SET_PRODUCTS,
+        payload: data,
       });
     });
   }, []);
 
   const handleFilterChange = useCallback((e) => {
-    dispatch({ type: 'SET_FILTER', payload: e.target.value });
+    dispatch({
+      type: 'SET_FILTER',
+      payload: e.target.value,
+    });
   }, []);
 
   const handleSortOrderChange = useCallback((e) => {
-    dispatch({ type: 'SET_SORT_ORDER', payload: e.target.value });
+    dispatch({
+      type: 'SET_SORT_ORDER',
+      payload: e.target.value,
+    });
   }, []);
 
   const filteredProducts = useMemo(
@@ -86,9 +101,9 @@ export const ProductCatalog = () => {
     [debouncedFilter, products]
   );
 
-  const sortedProducts = useCallback(
+  const sortedProducts = useMemo(
     () =>
-      filteredProducts.sort((a, b) => {
+      [...filteredProducts].sort((a, b) => {
         return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
       }),
     [sortOrder, filteredProducts]
