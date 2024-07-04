@@ -1,3 +1,9 @@
+import { UserManagementPanel } from './UserManagementPanel.jsx';
+
 export const CommentForm = () => {
-  return null;
+  return (
+    <>
+      <UserManagementPanel />
+    </>
+  );
 };
