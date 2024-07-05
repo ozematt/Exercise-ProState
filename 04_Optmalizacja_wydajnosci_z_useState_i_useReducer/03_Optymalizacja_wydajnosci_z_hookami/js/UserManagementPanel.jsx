@@ -3,34 +3,86 @@ import { useReducer } from 'react';
 const initialState = {
   name: '',
   role: '',
+  users: [],
+  userCounter: 0,
 };
 
 const ActionTypes = {
+  SET_USERS: 'SET_USERS',
   ADD_USER: 'ADD_USER',
   SEARCH_USER: 'SEARCH_USER',
   FILTER_USER: 'FILTER_USER',
+  FORM_RESET: 'FORM_RESET',
 };
 
 const addUserReducer = (state, action) => {
   switch (action.type) {
-    case ActionTypes.ADD_USER:
+    case ActionTypes.SET_USERS:
       return {
         ...state,
         [action.field]: action.value,
       };
+    case ActionTypes.ADD_USER:
+      return {
+        ...state,
+        users: [...state.users, action.user],
+        userCounter: state.userCounter + 1,
+      };
+    case ActionTypes.FORM_RESET:
+      return {
+        ...state,
+        name: '',
+        role: '',
+      };
+    default:
+      return state;
   }
 };
 
 export const UserManagementPanel = () => {
   const [state, dispatch] = useReducer(addUserReducer, initialState);
 
+  const handleSetUser = (e) => {
+    dispatch({
+      type: ActionTypes.SET_USERS,
+      field: e.target.name,
+      value: e.target.value,
+    });
+  };
+
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: ActionTypes.ADD_USER,
+      user: { name: state.name, role: state.role, id: state.userCounter },
+    });
+    dispatch({
+      type: ActionTypes.FORM_RESET,
+    });
+  };
+
+  console.log(state.users);
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
       <h2 style={{ textAlign: 'center' }}>User Management Panel</h2>
       <div style={{ marginBottom: '20px' }}>
-        <form>
-          <input type="text" placeholder="Name" style={{ marginRight: '10px', padding: '10px' }} />
-          <input type="text" placeholder="Role" style={{ marginRight: '10px', padding: '10px' }} />
+        <form onSubmit={handleAddUser}>
+          <input
+            type="text"
+            name="name"
+            value={state.name}
+            placeholder="Name"
+            onChange={handleSetUser}
+            style={{ marginRight: '10px', padding: '10px' }}
+          />
+          <input
+            type="text"
+            name="role"
+            value={state.role}
+            placeholder="Role"
+            onChange={handleSetUser}
+            style={{ marginRight: '10px', padding: '10px' }}
+          />
           <button type="submit" style={{ padding: '10px' }}>
             Add User
           </button>
