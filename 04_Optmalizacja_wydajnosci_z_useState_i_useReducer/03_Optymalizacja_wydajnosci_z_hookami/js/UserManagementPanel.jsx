@@ -15,6 +15,7 @@ const ActionTypes = {
   FORM_RESET: 'FORM_RESET',
 };
 
+//reducer function
 const addUserReducer = (state, action) => {
   switch (action.type) {
     case ActionTypes.SET_USERS:
@@ -40,8 +41,10 @@ const addUserReducer = (state, action) => {
 };
 
 export const UserManagementPanel = () => {
+  ////DATA
   const [state, dispatch] = useReducer(addUserReducer, initialState);
 
+  ////LOGIC
   //handle input change
   const handleSetUser = (e) => {
     dispatch({
@@ -63,6 +66,7 @@ export const UserManagementPanel = () => {
   };
 
   console.log(state.users);
+  ////UI
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
       <h2 style={{ textAlign: 'center' }}>User Management Panel</h2>
