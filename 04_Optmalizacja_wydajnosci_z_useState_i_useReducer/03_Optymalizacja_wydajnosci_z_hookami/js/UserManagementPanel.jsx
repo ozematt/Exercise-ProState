@@ -86,16 +86,19 @@ export const UserManagementPanel = () => {
   }, []);
 
   //handle add user
-  const handleAddUser = useCallback((e) => {
-    e.preventDefault();
-    dispatch({
-      type: ActionTypes.ADD_USER,
-      user: { name: state.name, role: state.role, id: state.userCounter },
-    });
-    dispatch({
-      type: ActionTypes.FORM_RESET,
-    });
-  }, []);
+  const handleAddUser = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch({
+        type: ActionTypes.ADD_USER,
+        user: { name: state.name, role: state.role, id: state.userCounter },
+      });
+      dispatch({
+        type: ActionTypes.FORM_RESET,
+      });
+    },
+    [state.name, state.role]
+  );
 
   //handle select change to sort by the role
   const handleSortRole = useCallback((e) => {
@@ -122,7 +125,7 @@ export const UserManagementPanel = () => {
     [state.users, state.sortRole]
   );
 
-  console.log(state.name);
+  console.log(state);
   ////UI
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
