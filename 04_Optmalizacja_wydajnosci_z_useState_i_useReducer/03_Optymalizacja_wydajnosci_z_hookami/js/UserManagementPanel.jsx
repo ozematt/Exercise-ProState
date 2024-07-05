@@ -6,6 +6,7 @@ const initialState = {
   users: [],
   userCounter: 0,
   sortRole: '',
+  filter: '',
 };
 
 const ActionTypes = {
@@ -41,6 +42,11 @@ const addUserReducer = (state, action) => {
       return {
         ...state,
         sortRole: action.role,
+      };
+    case ActionTypes.FILTER_USER:
+      return {
+        ...state,
+        filter: action.filter,
       };
     default:
       return state;
@@ -81,14 +87,21 @@ export const UserManagementPanel = () => {
     });
   }, []);
 
+  const handleFilterChange = useCallback((e) => {
+    dispatch({
+      type: ActionTypes.FILTER_USER,
+      filter: e.target.value,
+    });
+  }, []);
+
   const filtredUsersByName = useMemo(
-    () => state.users.filter((user) => user.name.toLowerCase().includes(state.name.toLowerCase())),
-    [state.users]
+    () => state.users.filter((user) => user.name.toLowerCase().includes(state.filter.toLowerCase())),
+    [state.filter, state.users]
   );
 
   const sortedUsersByRole = useMemo(
     () => state.users.filter((user) => user.role.toLowerCase().includes(state.sortRole.toLowerCase())),
-    [state.users]
+    [state.users, state.sortRole]
   );
 
   console.log(state.name);
@@ -122,6 +135,9 @@ export const UserManagementPanel = () => {
       <div style={{ display: 'flex', gap: '10px' }}>
         <input
           type="text"
+          name="filter"
+          value={state.filter}
+          onChange={handleFilterChange}
           placeholder="Search by name..."
           style={{ width: '100%', padding: '10px', marginBottom: '20px' }}
         />
