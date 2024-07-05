@@ -120,8 +120,6 @@ export const UserManagementPanel = () => {
     () => users.filter((user) => user.name.toLowerCase().includes(debouncedFilter.toLowerCase())),
     [debouncedFilter, users]
   );
-  // console.log(filtredUsersByName);
-  console.log(sortRole);
 
   const sortedUsersByRole = useMemo(
     () => filtredUsersByName.filter((user) => user.role.toLowerCase().includes(sortRole.toLowerCase())),
@@ -149,7 +147,6 @@ export const UserManagementPanel = () => {
     ));
   };
 
-  console.log(sortedUsersByRole);
   ////UI
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
