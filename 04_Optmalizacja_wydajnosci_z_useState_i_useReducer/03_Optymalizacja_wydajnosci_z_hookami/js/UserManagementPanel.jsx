@@ -109,6 +109,7 @@ export const UserManagementPanel = () => {
     });
   }, []);
 
+  //handle filter change
   const handleFilterChange = useCallback((e) => {
     dispatch({
       type: ActionTypes.FILTER_USER,
@@ -116,21 +117,26 @@ export const UserManagementPanel = () => {
     });
   }, []);
 
+  //array with filtered user
   const filtredUsersByName = useMemo(
     () => users.filter((user) => user.name.toLowerCase().includes(debouncedFilter.toLowerCase())),
     [debouncedFilter, users]
   );
 
+  //array with filtered user by role
   const sortedUsersByRole = useMemo(
     () => filtredUsersByName.filter((user) => user.role.toLowerCase().includes(sortRole.toLowerCase())),
     [users, sortRole]
   );
 
+  //ANCILLARY STUFF:
+  //array with unique role
   const uniqueRole = () => {
     const roleArr = users.map((user) => user.role);
     return Array.from(new Set(roleArr));
   };
 
+  //li elements with filtered by name users
   const filtredList = () => {
     return filtredUsersByName.map((user) => (
       <li key={user.id} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
@@ -139,6 +145,7 @@ export const UserManagementPanel = () => {
     ));
   };
 
+  //li elements with filtered by role users
   const filtredListByRole = () => {
     return sortedUsersByRole.map((user) => (
       <li key={user.id} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
