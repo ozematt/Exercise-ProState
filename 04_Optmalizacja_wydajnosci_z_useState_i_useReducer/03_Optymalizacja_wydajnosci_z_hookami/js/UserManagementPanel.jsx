@@ -93,11 +93,28 @@ export const UserManagementPanel = () => {
           </button>
         </form>
       </div>
-      <input
-        type="text"
-        placeholder="Search by name..."
-        style={{ width: '100%', padding: '10px', marginBottom: '20px' }}
-      />
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <input
+          type="text"
+          placeholder="Search by name..."
+          style={{ width: '100%', padding: '10px', marginBottom: '20px' }}
+        />
+        <select
+          name=""
+          style={{
+            height: '47px',
+          }}
+        >
+          <option value="" selected>
+            filter by role
+          </option>
+          {state.users.map((user) => (
+            <option key={user.id} value={user.name}>
+              {user.role}
+            </option>
+          ))}
+        </select>
+      </div>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
         {[].map((user) => (
           <li key={user.name} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
