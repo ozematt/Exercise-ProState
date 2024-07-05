@@ -1,4 +1,4 @@
-import { useReducer, useMemo } from 'react';
+import { useReducer, useMemo, useCallback } from 'react';
 
 const initialState = {
   name: '',
@@ -53,15 +53,16 @@ export const UserManagementPanel = () => {
 
   ////LOGIC
   //handle input change
-  const handleSetUser = (e) => {
+  const handleSetUser = useCallback((e) => {
     dispatch({
       type: ActionTypes.SET_USERS,
       field: e.target.name,
       value: e.target.value,
     });
-  };
+  }, []);
+
   //handle add user
-  const handleAddUser = (e) => {
+  const handleAddUser = useCallback((e) => {
     e.preventDefault();
     dispatch({
       type: ActionTypes.ADD_USER,
@@ -70,13 +71,15 @@ export const UserManagementPanel = () => {
     dispatch({
       type: ActionTypes.FORM_RESET,
     });
-  };
-  const handleSortRole = (e) => {
+  }, []);
+
+  //handle select change to sort by the role
+  const handleSortRole = useCallback((e) => {
     dispatch({
       type: ActionTypes.SORT_ORDER,
       role: e.target.value,
     });
-  };
+  }, []);
 
   const filtredUsersByName = useMemo(
     () => state.users.filter((user) => user.name.toLowerCase().includes(state.name.toLowerCase())),
