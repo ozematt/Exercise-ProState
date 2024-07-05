@@ -1,4 +1,4 @@
-import { useReducer, useMemo, useCallback } from 'react';
+import { useReducer, useMemo, useCallback, useEffect, useState } from 'react';
 
 const initialState = {
   name: '',
@@ -53,9 +53,27 @@ const addUserReducer = (state, action) => {
   }
 };
 
+//Debounce
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
 export const UserManagementPanel = () => {
   ////DATA
   const [state, dispatch] = useReducer(addUserReducer, initialState);
+  const debouncedFilter = useDebounce(state.filter, 300);
 
   ////LOGIC
   //handle input change
@@ -95,8 +113,8 @@ export const UserManagementPanel = () => {
   }, []);
 
   const filtredUsersByName = useMemo(
-    () => state.users.filter((user) => user.name.toLowerCase().includes(state.filter.toLowerCase())),
-    [state.filter, state.users]
+    () => state.users.filter((user) => user.name.toLowerCase().includes(debouncedFilter.toLowerCase())),
+    [debouncedFilter, state.users]
   );
 
   const sortedUsersByRole = useMemo(
