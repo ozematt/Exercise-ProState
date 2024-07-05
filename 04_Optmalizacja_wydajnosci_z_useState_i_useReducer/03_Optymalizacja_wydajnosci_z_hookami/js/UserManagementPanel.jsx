@@ -73,7 +73,8 @@ const useDebounce = (value, delay) => {
 export const UserManagementPanel = () => {
   ////DATA
   const [state, dispatch] = useReducer(addUserReducer, initialState);
-  const debouncedFilter = useDebounce(state.filter, 300);
+  const { name, role, users, filter, sortOrder, sortRole } = state;
+  const debouncedFilter = useDebounce(filter, 300);
 
   ////LOGIC
   //handle input change
@@ -91,7 +92,7 @@ export const UserManagementPanel = () => {
       e.preventDefault();
       dispatch({
         type: ActionTypes.ADD_USER,
-        user: { name: state.name, role: state.role, id: state.userCounter },
+        user: { name: name, role: role, id: state.userCounter },
       });
       dispatch({
         type: ActionTypes.FORM_RESET,
@@ -116,13 +117,15 @@ export const UserManagementPanel = () => {
   }, []);
 
   const filtredUsersByName = useMemo(
-    () => state.users.filter((user) => user.name.toLowerCase().includes(debouncedFilter.toLowerCase())),
-    [debouncedFilter, state.users]
+    () => users.filter((user) => user.name.toLowerCase().includes(debouncedFilter.toLowerCase())),
+    [debouncedFilter, users]
   );
+  console.log(filtredUsersByName);
+  console.log(filter);
 
   const sortedUsersByRole = useMemo(
-    () => state.users.filter((user) => user.role.toLowerCase().includes(state.sortRole.toLowerCase())),
-    [state.users, state.sortRole]
+    () => users.filter((user) => user.role.toLowerCase().includes(sortRole.toLowerCase())),
+    [users, sortRole]
   );
 
   console.log(state);
@@ -135,7 +138,7 @@ export const UserManagementPanel = () => {
           <input
             type="text"
             name="name"
-            value={state.name}
+            value={name}
             placeholder="Name"
             onChange={handleSetUser}
             style={{ marginRight: '10px', padding: '10px' }}
@@ -143,7 +146,7 @@ export const UserManagementPanel = () => {
           <input
             type="text"
             name="role"
-            value={state.role}
+            value={role}
             placeholder="Role"
             onChange={handleSetUser}
             style={{ marginRight: '10px', padding: '10px' }}
@@ -157,7 +160,7 @@ export const UserManagementPanel = () => {
         <input
           type="text"
           name="filter"
-          value={state.filter}
+          value={filter}
           onChange={handleFilterChange}
           placeholder="Search by name..."
           style={{ width: '100%', padding: '10px', marginBottom: '20px' }}
@@ -171,7 +174,7 @@ export const UserManagementPanel = () => {
           }}
         >
           <option value="-1">filter by role</option>
-          {state.users.map((user) => (
+          {users.map((user) => (
             <option key={user.id} value={user.name}>
               {user.role}
             </option>
@@ -179,8 +182,8 @@ export const UserManagementPanel = () => {
         </select>
       </div>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {state.users.map((user) => (
-          <li key={user.name} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+        {filtredUsersByName.map((user) => (
+          <li key={user.id} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
             {user.name} - {user.role}
           </li>
         ))}
