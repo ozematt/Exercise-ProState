@@ -42,6 +42,7 @@ const addUserReducer = (state, action) => {
 export const UserManagementPanel = () => {
   const [state, dispatch] = useReducer(addUserReducer, initialState);
 
+  //handle input change
   const handleSetUser = (e) => {
     dispatch({
       type: ActionTypes.SET_USERS,
@@ -49,7 +50,7 @@ export const UserManagementPanel = () => {
       value: e.target.value,
     });
   };
-
+  //handle add user
   const handleAddUser = (e) => {
     e.preventDefault();
     dispatch({
