@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useMemo } from 'react';
 
 const initialState = {
   name: '',
@@ -78,13 +78,15 @@ export const UserManagementPanel = () => {
     });
   };
 
-  const filtredUsersByName = () => {
-    state.users.filter((user) => user.name.toLowerCase().includes(state.name.toLowerCase()));
-  };
+  const filtredUsersByName = useMemo(
+    () => state.users.filter((user) => user.name.toLowerCase().includes(state.name.toLowerCase())),
+    [state.users]
+  );
 
-  const sortedUsersByRole = () => {
-    state.users.filter((user) => user.role.toLowerCase().includes(state.sortRole.toLowerCase()));
-  };
+  const sortedUsersByRole = useMemo(
+    () => state.users.filter((user) => user.role.toLowerCase().includes(state.sortRole.toLowerCase())),
+    [state.users]
+  );
 
   console.log(state.name);
   ////UI
