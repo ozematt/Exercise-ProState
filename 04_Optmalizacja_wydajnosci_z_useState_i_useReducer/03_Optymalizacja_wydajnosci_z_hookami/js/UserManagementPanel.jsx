@@ -5,6 +5,7 @@ const initialState = {
   role: '',
   users: [],
   userCounter: 0,
+  sortRole: '',
 };
 
 const ActionTypes = {
@@ -12,6 +13,7 @@ const ActionTypes = {
   ADD_USER: 'ADD_USER',
   SEARCH_USER: 'SEARCH_USER',
   FILTER_USER: 'FILTER_USER',
+  SORT_ORDER: 'SORT_ORDER',
   FORM_RESET: 'FORM_RESET',
 };
 
@@ -34,6 +36,11 @@ const addUserReducer = (state, action) => {
         ...state,
         name: '',
         role: '',
+      };
+    case ActionTypes.SORT_ORDER:
+      return {
+        ...state,
+        sortRole: action.role,
       };
     default:
       return state;
@@ -64,8 +71,22 @@ export const UserManagementPanel = () => {
       type: ActionTypes.FORM_RESET,
     });
   };
+  const handleSortRole = (e) => {
+    dispatch({
+      type: ActionTypes.SORT_ORDER,
+      role: e.target.value,
+    });
+  };
 
-  console.log(state.users);
+  const filtredUsersByName = () => {
+    state.users.filter((user) => user.name.toLowerCase().includes(state.name.toLowerCase()));
+  };
+
+  const sortedUsersByRole = () => {
+    state.users.filter((user) => user.role.toLowerCase().includes(state.sortRole.toLowerCase()));
+  };
+
+  console.log(state.name);
   ////UI
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
@@ -100,14 +121,14 @@ export const UserManagementPanel = () => {
           style={{ width: '100%', padding: '10px', marginBottom: '20px' }}
         />
         <select
-          name=""
+          name="role"
+          id="role"
+          onChange={handleSortRole}
           style={{
             height: '47px',
           }}
         >
-          <option value="" selected>
-            filter by role
-          </option>
+          <option value="-1">filter by role</option>
           {state.users.map((user) => (
             <option key={user.id} value={user.name}>
               {user.role}
@@ -116,7 +137,7 @@ export const UserManagementPanel = () => {
         </select>
       </div>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {[].map((user) => (
+        {state.users.map((user) => (
           <li key={user.name} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
             {user.name} - {user.role}
           </li>
