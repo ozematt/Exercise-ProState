@@ -120,15 +120,36 @@ export const UserManagementPanel = () => {
     () => users.filter((user) => user.name.toLowerCase().includes(debouncedFilter.toLowerCase())),
     [debouncedFilter, users]
   );
-  console.log(filtredUsersByName);
-  console.log(filter);
+  // console.log(filtredUsersByName);
+  console.log(sortRole);
 
   const sortedUsersByRole = useMemo(
-    () => users.filter((user) => user.role.toLowerCase().includes(sortRole.toLowerCase())),
+    () => filtredUsersByName.filter((user) => user.role.toLowerCase().includes(sortRole.toLowerCase())),
     [users, sortRole]
   );
 
-  console.log(state);
+  const uniqueRole = () => {
+    const roleArr = users.map((user) => user.role);
+    return Array.from(new Set(roleArr));
+  };
+
+  const filtredList = () => {
+    return filtredUsersByName.map((user) => (
+      <li key={user.id} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+        {user.name} - {user.role}
+      </li>
+    ));
+  };
+
+  const filtredListByRole = () => {
+    return sortedUsersByRole.map((user) => (
+      <li key={user.id} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+        {user.name} - {user.role}
+      </li>
+    ));
+  };
+
+  console.log(sortedUsersByRole);
   ////UI
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
@@ -174,20 +195,14 @@ export const UserManagementPanel = () => {
           }}
         >
           <option value="-1">filter by role</option>
-          {users.map((user) => (
-            <option key={user.id} value={user.name}>
-              {user.role}
+          {uniqueRole().map((role, index) => (
+            <option key={index} value={role}>
+              {role}
             </option>
           ))}
         </select>
       </div>
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {filtredUsersByName.map((user) => (
-          <li key={user.id} style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-            {user.name} - {user.role}
-          </li>
-        ))}
-      </ul>
+      <ul style={{ listStyleType: 'none', padding: 0 }}>{sortRole ? filtredListByRole() : filtredList()}</ul>
     </div>
   );
 };
