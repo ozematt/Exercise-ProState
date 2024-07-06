@@ -73,7 +73,7 @@ const useDebounce = (value, delay) => {
 export const UserManagementPanel = () => {
   ////DATA
   const [state, dispatch] = useReducer(addUserReducer, initialState);
-  const { name, role, users, filter, sortOrder, sortRole } = state;
+  const { name, role, users, filter, sortRole } = state;
   const debouncedFilter = useDebounce(filter, 300);
 
   ////LOGIC
