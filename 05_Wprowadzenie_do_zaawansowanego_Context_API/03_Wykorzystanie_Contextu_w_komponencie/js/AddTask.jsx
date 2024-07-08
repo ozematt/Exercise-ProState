@@ -11,7 +11,7 @@ export const AddTask = () => {
     <>
       <form onSubmit={(event) => handleAddTasks(event, task)}>
         <input
-          value={task}
+          value={tasks.name}
           name="name"
           type="text"
           onChange={(e) => {

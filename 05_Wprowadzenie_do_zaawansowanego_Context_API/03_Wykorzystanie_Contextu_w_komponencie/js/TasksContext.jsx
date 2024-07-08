@@ -11,8 +11,17 @@ export const TasksContextProvider = ({ children }) => {
     event.preventDefault();
     setTasks((prevState) => [...prevState, { name: newTask, done: false, id: Date.now() }]);
   };
+
   const handleTasksFilter = (taskFilter) => {
-    setTasks((prevState) => prevState.filter((task) => task.id !== taskFilter.id));
+    setTasks((prevState) => {
+      if (taskFilter === 'active') {
+        return prevState.filter((task) => !task.done);
+      }
+      if (taskFilter === 'done') {
+        return prevState.filter((task) => task.done);
+      }
+      return prevState;
+    });
   };
 
   const handleTasksDone = (taskDone) => {
