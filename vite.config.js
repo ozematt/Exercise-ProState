@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '05_Wprowadzenie_do_zaawansowanego_Context_API/02_Tworzenie_Contextu_i_Providerow';
+const exercisePath = '05_Wprowadzenie_do_zaawansowanego_Context_API/03_Wykorzystanie_Contextu_w_komponencie';
 
 /**
  * Don't change those lines below
