@@ -2,11 +2,12 @@ import { useContext, useState } from 'react';
 import { TasksContext } from './TasksContext.jsx';
 
 export const AddTask = () => {
+  ///DATA
   const { tasks, handleAddTasks } = useContext(TasksContext);
 
   const [task, setTask] = useState('');
-  console.log(task);
 
+  ////UI
   return (
     <>
       <form onSubmit={(event) => handleAddTasks(event, task)}>
