@@ -1,15 +1,14 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { TasksContext } from './TasksContext.jsx';
 
 export const TasksList = () => {
   const { tasks, handleTasksDone } = useContext(TasksContext);
-  const [isChecked, setChecked] = useState(false);
 
   return (
     <>
       <ul>
         {tasks.map((task) => (
-          <li key={task.id}>
+          <li key={task.id} style={{ textDecoration: task.done ? 'line-through' : 'none' }}>
             {task.name}
             <button onClick={() => handleTasksDone(task)}>Done</button>
           </li>

@@ -16,7 +16,7 @@ export const TasksContextProvider = ({ children }) => {
   };
 
   const handleTasksDone = (taskDone) => {
-    setTasks((prevState) => [...prevState, prevState.map((task) => (task.id === taskDone.id ? taskDone : task))]);
+    setTasks((prevState) => prevState.map((task) => (task.id === taskDone.id ? { ...task, done: true } : task)));
   };
   return (
     <>
