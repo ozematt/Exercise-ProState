@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import { TasksContext } from './TasksContext.jsx';
 
 export const TasksList = () => {
+  ////DATA
   const { tasks, handleTasksDone } = useContext(TasksContext);
-
+  ////UI
   return (
     <>
       <ul>
