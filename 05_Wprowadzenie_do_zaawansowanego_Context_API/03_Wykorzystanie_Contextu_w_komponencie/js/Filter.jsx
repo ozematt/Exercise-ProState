@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { TasksContext } from './TasksContext.jsx';
 
 export const Filter = () => {
-  const { tasks, handleTasksFilter } = useContext(TasksContext);
+  const { handleTasksFilter } = useContext(TasksContext);
 
   return (
     <>

@@ -3,10 +3,10 @@ import { createContext, useState } from 'react';
 export const TasksContext = createContext();
 
 export const TasksContextProvider = ({ children }) => {
+  ////DATA
   const [tasks, setTasks] = useState([]);
 
-  console.log(tasks);
-
+  ////LOGIC
   const handleAddTasks = (event, newTask) => {
     event.preventDefault();
     setTasks((prevState) => [...prevState, { name: newTask, done: false, id: Date.now() }]);
@@ -27,6 +27,8 @@ export const TasksContextProvider = ({ children }) => {
   const handleTasksDone = (taskDone) => {
     setTasks((prevState) => prevState.map((task) => (task.id === taskDone.id ? { ...task, done: true } : task)));
   };
+
+  ////UI
   return (
     <>
       <TasksContext.Provider value={{ tasks, handleAddTasks, handleTasksFilter, handleTasksDone }}>
