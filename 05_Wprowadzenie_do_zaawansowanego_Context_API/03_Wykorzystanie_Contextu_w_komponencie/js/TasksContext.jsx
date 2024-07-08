@@ -1,19 +1,22 @@
 import { createContext, useState } from 'react';
 
-const TasksContext = createContext();
+export const TasksContext = createContext();
 
 export const TasksContextProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
-  handleAddTasks = (newTask) => {
-    setTasks((prevState) => [...prevState, newTask]);
+  console.log(tasks);
+
+  const handleAddTasks = (event, newTask) => {
+    event.preventDefault();
+    setTasks((prevState) => [...prevState, { name: newTask, done: false, id: Date.now() }]);
   };
-  handleTasksFilter = (taskFilter) => {
+  const handleTasksFilter = (taskFilter) => {
     setTasks((prevState) => prevState.filter((task) => task.id !== taskFilter.id));
   };
 
-  handleTasksDone = (taskDone) => {
-    setTasks((prevState) => prevState.map((item) => (item.id === taskDone.id ? taskDone : item)));
+  const handleTasksDone = (taskDone) => {
+    setTasks((prevState) => [...prevState, prevState.map((task) => (task.id === taskDone.id ? taskDone : task))]);
   };
   return (
     <>
