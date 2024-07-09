@@ -1,6 +1,6 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
-const UserPreferencesContext = createContext();
+export const UserPreferencesContext = createContext();
 
 const initialState = { theme: 'light', language: 'en', notifications: true };
 
@@ -25,10 +25,11 @@ const reducer = (state, action) => {
 
 export const UserPreferencesProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  console.log(state);
   return (
     <>
       <UserPreferencesContext.Provider value={{ state, dispatch }}>{children}</UserPreferencesContext.Provider>
     </>
   );
 };
+// export const useThemeSelector = () => useContext(UserPreferencesContext)
