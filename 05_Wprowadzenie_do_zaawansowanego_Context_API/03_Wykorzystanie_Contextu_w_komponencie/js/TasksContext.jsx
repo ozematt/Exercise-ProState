@@ -6,6 +6,8 @@ export const TasksContextProvider = ({ children }) => {
   ////DATA
   const [tasks, setTasks] = useState([]);
 
+  const [filteredTasks, setFilteredTasks] = useState(tasks);
+
   ////LOGIC
   const handleAddTasks = (event, newTask) => {
     event.preventDefault();
@@ -13,7 +15,7 @@ export const TasksContextProvider = ({ children }) => {
   };
 
   const handleTasksFilter = (taskFilter) => {
-    setTasks((prevState) => {
+    setFilteredTasks((prevState) => {
       switch (taskFilter) {
         case 'active':
           return prevState.filter((task) => !task.done);
@@ -33,7 +35,7 @@ export const TasksContextProvider = ({ children }) => {
   ////UI
   return (
     <>
-      <TasksContext.Provider value={{ tasks, handleAddTasks, handleTasksFilter, handleTasksDone }}>
+      <TasksContext.Provider value={{ tasks, filteredTasks, handleAddTasks, handleTasksFilter, handleTasksDone }}>
         {children}
       </TasksContext.Provider>
     </>
