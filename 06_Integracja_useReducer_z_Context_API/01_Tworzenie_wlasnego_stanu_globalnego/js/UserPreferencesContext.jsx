@@ -12,25 +12,23 @@ const ActionsTypes = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case ActionsTypes.SET_THEME{
+    case ActionsTypes.SET_THEME:
       return { ...state, theme: action.theme };
-    }
-    case ActionsTypes.SET_LANGUAGE{
+
+    case ActionsTypes.SET_LANGUAGE:
       return { ...state, language: action.language };
-    }
-    case ActionsTypes.TOGGLE_NOTIFICATION: {
+
+    case ActionsTypes.TOGGLE_NOTIFICATION:
       return { ...state, notifications: action.notification };
-    }
   }
 };
 
-const UserPreferencesProvider = ({ children }) => {
+export const UserPreferencesProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  return(
+
+  return (
     <>
-    <UserPreferencesContext.Provider value={{ state, dispatch }}>
-      {children}
-    </UserPreferencesContext.Provider>
+      <UserPreferencesContext.Provider value={{ state, dispatch }}>{children}</UserPreferencesContext.Provider>
     </>
-  )
+  );
 };

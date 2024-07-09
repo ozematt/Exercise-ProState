@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { ThemeSelector } from './ThemeSelector';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { NotificationsToggler } from './NotificationsToggler';
+import { UserPreferencesProvider } from './UserPreferencesContext.jsx';
 
 const App = () => {
   return (
@@ -17,4 +18,8 @@ const App = () => {
 
 const container = document.getElementById('app');
 const root = createRoot(container);
-root.render(<App />);
+root.render(
+  <UserPreferencesProvider>
+    <App />
+  </UserPreferencesProvider>
+);
