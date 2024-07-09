@@ -13,7 +13,7 @@ export const NotificationsToggler = () => {
           onClick={() =>
             dispatch({
               type: 'TOGGLE_NOTIFICATION',
-              notifications: true,
+              notification: true,
             })
           }
           type="radio"
@@ -28,7 +28,7 @@ export const NotificationsToggler = () => {
           onClick={() =>
             dispatch({
               type: 'TOGGLE_NOTIFICATION',
-              notifications: false,
+              notification: false,
             })
           }
           type="radio"
