@@ -1,14 +1,41 @@
+import { useContext } from 'react';
+import { UserPreferencesContext } from './UserPreferencesContext.jsx';
+
 export const NotificationsToggler = () => {
+  const { dispatch } = useContext(UserPreferencesContext);
+
   return (
     <div>
       <h2>Notifications</h2>
       <div>
         <label htmlFor="on">On</label>
-        <input type="radio" id="on" name="notifications" value="on" />
+        <input
+          onClick={() =>
+            dispatch({
+              type: 'TOGGLE_NOTIFICATION',
+              notifications: true,
+            })
+          }
+          type="radio"
+          id="on"
+          name="notifications"
+          value="on"
+        />
       </div>
       <div>
         <label htmlFor="off">Off</label>
-        <input type="radio" id="off" name="notifications" value="off" />
+        <input
+          onClick={() =>
+            dispatch({
+              type: 'TOGGLE_NOTIFICATION',
+              notifications: false,
+            })
+          }
+          type="radio"
+          id="off"
+          name="notifications"
+          value="off"
+        />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { UserPreferencesContext } from './UserPreferencesContext.jsx';
 
 export const ThemeSelector = () => {
-  const { state, dispatch } = useContext(UserPreferencesContext);
+  const { dispatch } = useContext(UserPreferencesContext);
 
   return (
     <div>
