@@ -1,6 +1,7 @@
+import React from 'react';
 import { useGlobalState } from './GlobalStateContext';
 
-export const CounterComponent = () => {
+export const CounterComponent = React.memo(() => {
   const { state, dispatch } = useGlobalState();
 
   return (
@@ -10,4 +11,4 @@ export const CounterComponent = () => {
       <button onClick={() => dispatch({ type: 'decrement' })}>Decrement</button>
     </div>
   );
-};
+});
