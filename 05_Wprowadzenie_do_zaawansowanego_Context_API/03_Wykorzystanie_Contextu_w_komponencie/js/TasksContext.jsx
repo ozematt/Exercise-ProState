@@ -14,13 +14,15 @@ export const TasksContextProvider = ({ children }) => {
 
   const handleTasksFilter = (taskFilter) => {
     setTasks((prevState) => {
-      if (taskFilter === 'active') {
-        return prevState.filter((task) => !task.done);
+      switch (taskFilter) {
+        case 'active':
+          return prevState.filter((task) => !task.done);
+        case 'done':
+          return prevState.filter((task) => task.done);
+        case 'all':
+        default:
+          return prevState;
       }
-      if (taskFilter === 'done') {
-        return prevState.filter((task) => task.done);
-      }
-      return prevState;
     });
   };
 
