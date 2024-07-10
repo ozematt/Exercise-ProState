@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useCallback, useContext, useMemo, useReducer } from 'react';
 import { photos } from './data';
 
 const FavoritesContext = createContext();
@@ -19,12 +19,15 @@ export const FavoritesProvider = ({ children }) => {
   const [favorites, dispatch] = useReducer(favoritesReducer, []);
 
   // Uzupełnij kod i użyj useMemo
-  const value = [];
+  const contextFavorites = useMemo(() => favorites, [favorites]);
 
   // Stwórz funkcje `addFavorite` i `removeFavorite` do zarządzania ulubionymi zdjęciami
   // Wykorzystaj `dispatch` do wywołania akcji i useCallback do optymalizacji
+  const addFavorites = useCallback((favorites) => {
+    dispatch({ type: 'ADD_FAVORITE', payload: favorites });
+  });
 
-  return <FavoritesContext.Provider value={value}>{children}</FavoritesContext.Provider>;
+  return <FavoritesContext.Provider value={contextFavorites}>{children}</FavoritesContext.Provider>;
 };
 
 // Hook
