@@ -43,6 +43,7 @@ export const useFavorites = () => useContext(FavoritesContext);
 
 // Komponent galerii (do uzupełnienia przez kursanta)
 const Gallery = () => {
+  const { favorites, addFavorites, removeFavorites } = useFavorites();
   // [Twoje zadanie: Uzupełnij logikę wykorzystując `useFavorites` do wyświetlania ulubionych zdjęć]
 };
 
