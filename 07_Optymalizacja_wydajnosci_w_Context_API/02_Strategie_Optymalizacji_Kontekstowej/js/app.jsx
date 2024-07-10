@@ -26,7 +26,9 @@ export const FavoritesProvider = ({ children }) => {
   const addFavorites = useCallback((photo) => {
     dispatch({ type: 'ADD_FAVORITE', payload: photo });
   });
-  const removeFavorites = useCallback((favorites) => {});
+  const removeFavorites = useCallback((photo) => {
+    dispatch({ type: 'REMOVE_FAVORITE', payload: photo });
+  });
 
   return <FavoritesContext.Provider value={contextFavorites}>{children}</FavoritesContext.Provider>;
 };
