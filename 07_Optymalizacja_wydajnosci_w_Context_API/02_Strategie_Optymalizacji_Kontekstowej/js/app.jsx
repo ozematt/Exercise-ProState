@@ -4,12 +4,16 @@ import { createRoot } from 'react-dom/client';
 
 const FavoritesContext = createContext();
 
+const initialState = {
+  favorites: [],
+};
+
 const favoritesReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_FAVORITE':
-      return [...state, action.payload];
+      return { ...state, favorites: [...state.favorites, action.payload] };
     case 'REMOVE_FAVORITE':
-      return state.filter((photo) => photo.id !== action.payload.id);
+      return { ...state, favorites: state.favorites.filter((photo) => photo.id !== action.payload.id) };
     default:
       return state;
   }
@@ -17,9 +21,16 @@ const favoritesReducer = (state, action) => {
 
 // Provider
 export const FavoritesProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(favoritesReducer, []);
+  const [state, dispatch] = useReducer(favoritesReducer, initialState);
 
-  const contextFavorites = useMemo(() => state, [state]);
+  return <FavoritesContext.Provider value={{ state, dispatch }}>{children}</FavoritesContext.Provider>;
+};
+
+// Hook
+export const useFavorites = () => {
+  const { state, dispatch } = useContext(FavoritesContext);
+  console.log(state);
+  const contextFavorites = useMemo(() => state.favorites, [state.favorites]);
 
   const addFavorites = useCallback(
     (photo) => {
@@ -33,27 +44,19 @@ export const FavoritesProvider = ({ children }) => {
     },
     [dispatch]
   );
-
-  return (
-    <FavoritesContext.Provider value={{ contextFavorites, addFavorites, removeFavorites }}>
-      {children}
-    </FavoritesContext.Provider>
-  );
+  return { favorites: contextFavorites, removeFavorites, addFavorites };
 };
-
-// Hook
-export const useFavorites = () => useContext(FavoritesContext);
 
 // Komponent galerii (do uzupełnienia przez kursanta)
 const Gallery = () => {
-  const { addFavorites, removeFavorites } = useFavorites();
+  const { favorites, removeFavorites, addFavorites } = useFavorites();
 
   return (
     <>
       <div>
         <h3>Gallery:</h3>
         {photos.map((photo) => (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <div key={photo.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <img
               style={{
                 height: '150px',
@@ -61,22 +64,27 @@ const Gallery = () => {
               }}
               src={photo.url}
               alt={photo.title}
-              key={photo.id}
             />
-            <button onClick={() => addFavorites}>Add to Fav</button>
+            <button onClick={() => addFavorites(photo)}>Add to Fav</button>
           </div>
         ))}
       </div>
-      {/*{contextFavorites.map((favPhoto) => (*/}
-      {/*  <img src={favPhoto.url} alt={favPhoto.title} key={favPhoto.id} />*/}
-      {/*))}*/}
+      <div>
+        {favorites.map((favPhoto) => (
+          <img src={favPhoto.url} alt={favPhoto.title} key={favPhoto.id} />
+        ))}
+      </div>
     </>
   );
   // [Twoje zadanie: Uzupełnij logikę wykorzystując `useFavorites` do wyświetlania ulubionych zdjęć]
 };
 
 const App = () => {
-  return <Gallery />;
+  return (
+    <FavoritesProvider>
+      <Gallery />
+    </FavoritesProvider>
+  );
 };
 
 const container = document.getElementById('app');
