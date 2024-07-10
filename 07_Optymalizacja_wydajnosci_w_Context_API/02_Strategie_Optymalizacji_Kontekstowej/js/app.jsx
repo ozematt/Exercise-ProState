@@ -81,7 +81,7 @@ const Gallery = () => {
               src={photo.url}
               alt={photo.title}
             />
-            <button onClick={() => removeFavorites(photo)}>Add to Fav</button>
+            <button onClick={() => removeFavorites(photo)}>Remove from Fav</button>
           </div>
         ))}
       </div>
