@@ -56,11 +56,11 @@ const Gallery = () => {
       <div>
         <h3>Gallery:</h3>
         {photos.map((photo) => (
-          <div key={photo.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <div key={photo.id}>
             <img
               style={{
-                height: '150px',
-                width: '150px',
+                height: '50px',
+                width: '50px',
               }}
               src={photo.url}
               alt={photo.title}
