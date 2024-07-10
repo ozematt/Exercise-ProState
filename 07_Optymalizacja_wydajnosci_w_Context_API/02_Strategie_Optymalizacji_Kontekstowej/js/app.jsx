@@ -17,20 +17,26 @@ const favoritesReducer = (state, action) => {
 
 // Provider
 export const FavoritesProvider = ({ children }) => {
-  const [favorites, dispatch] = useReducer(favoritesReducer, []);
+  const [state, dispatch] = useReducer(favoritesReducer, []);
 
   // Uzupełnij kod i użyj useMemo
-  const contextFavorites = useMemo(() => favorites, [favorites]);
+  const contextFavorites = useMemo(() => state, [state]);
 
   // Stwórz funkcje `addFavorite` i `removeFavorite` do zarządzania ulubionymi zdjęciami
   // Wykorzystaj `dispatch` do wywołania akcji i useCallback do optymalizacji
 
-  const addFavorites = useCallback((photo) => {
-    dispatch({ type: 'ADD_FAVORITE', payload: photo });
-  });
-  const removeFavorites = useCallback((photo) => {
-    dispatch({ type: 'REMOVE_FAVORITE', payload: photo });
-  });
+  const addFavorites = useCallback(
+    (photo) => {
+      dispatch({ type: 'ADD_FAVORITE', payload: photo });
+    },
+    [dispatch]
+  );
+  const removeFavorites = useCallback(
+    (photo) => {
+      dispatch({ type: 'REMOVE_FAVORITE', payload: photo });
+    },
+    [dispatch]
+  );
 
   return (
     <FavoritesContext.Provider value={{ contextFavorites, addFavorites, removeFavorites }}>
@@ -44,20 +50,29 @@ export const useFavorites = () => useContext(FavoritesContext);
 
 // Komponent galerii (do uzupełnienia przez kursanta)
 const Gallery = () => {
-  // const { favorites, addFavorites, removeFavorites } = useFavorites();
+  const { addFavorites, removeFavorites } = useFavorites();
 
   return (
     <>
       <div>
+        <h3>Gallery:</h3>
         {photos.map((photo) => (
-          <img src={photo.url} alt={photo.title} key={photo.id}>
-            <button>Add to fav</button>
-            <button>Remove from fav</button>
-          </img>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <img
+              style={{
+                height: '150px',
+                width: '150px',
+              }}
+              src={photo.url}
+              alt={photo.title}
+              key={photo.id}
+            />
+            <button onClick={() => addFavorites}>Add to Fav</button>
+          </div>
         ))}
       </div>
-      {/*{favorites?.map((photo) => (*/}
-      {/*  <img src={photo.url} alt={photo.title} key={photo.id} />*/}
+      {/*{contextFavorites.map((favPhoto) => (*/}
+      {/*  <img src={favPhoto.url} alt={favPhoto.title} key={favPhoto.id} />*/}
       {/*))}*/}
     </>
   );
