@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useReducer } from 'react';
 import { photos } from './data';
+import { createRoot } from 'react-dom/client';
 
 const FavoritesContext = createContext();
 
@@ -32,7 +33,7 @@ export const FavoritesProvider = ({ children }) => {
   });
 
   return (
-    <FavoritesContext.Provider value={{ favorites: contextFavorites, addFavorites, removeFavorites }}>
+    <FavoritesContext.Provider value={{ contextFavorites, addFavorites, removeFavorites }}>
       {children}
     </FavoritesContext.Provider>
   );
@@ -43,13 +44,21 @@ export const useFavorites = () => useContext(FavoritesContext);
 
 // Komponent galerii (do uzupełnienia przez kursanta)
 const Gallery = () => {
-  const { favorites, addFavorites, removeFavorites } = useFavorites();
+  // const { favorites, addFavorites, removeFavorites } = useFavorites();
 
   return (
     <>
-      {favorites.map((photo) => (
-        <img src={photo.url} alt={photo.title} key={photo.id} />
-      ))}
+      <div>
+        {photos.map((photo) => (
+          <img src={photo.url} alt={photo.title} key={photo.id}>
+            <button>Add to fav</button>
+            <button>Remove from fav</button>
+          </img>
+        ))}
+      </div>
+      {/*{favorites?.map((photo) => (*/}
+      {/*  <img src={photo.url} alt={photo.title} key={photo.id} />*/}
+      {/*))}*/}
     </>
   );
   // [Twoje zadanie: Uzupełnij logikę wykorzystując `useFavorites` do wyświetlania ulubionych zdjęć]
