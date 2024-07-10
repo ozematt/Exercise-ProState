@@ -70,8 +70,19 @@ const Gallery = () => {
         ))}
       </div>
       <div>
-        {favorites.map((favPhoto) => (
-          <img src={favPhoto.url} alt={favPhoto.title} key={favPhoto.id} />
+        <h3>Favorites:</h3>
+        {favorites.map((photo) => (
+          <div key={photo.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <img
+              style={{
+                height: '150px',
+                width: '150px',
+              }}
+              src={photo.url}
+              alt={photo.title}
+            />
+            <button onClick={() => removeFavorites(photo)}>Add to Fav</button>
+          </div>
         ))}
       </div>
     </>
