@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '07_Optymalizacja_wydajnosci_w_Context_API/02_Strategie_Optymalizacji_Kontekstowej';
+const exercisePath = '08_Wprowadzenie_do_React_Hook_Form/01_Tworzenie_prostego_formularza';
 
 /**
  * Don't change those lines below

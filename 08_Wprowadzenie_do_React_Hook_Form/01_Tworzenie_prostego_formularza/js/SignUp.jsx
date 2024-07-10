@@ -1,29 +1,35 @@
+import { useForm } from 'react-hook-form';
+
 export const SignUp = () => {
+  const { register, handleSubmit, watch } = useForm();
+  const onSubmit = (data) => console.log(data);
+  console.log(watch('jobRole'));
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label>Name</label>
-        <input placeholder="Name" />
+        <input {...register('name')} placeholder="Name" />
       </div>
 
       <div>
         <label>Email</label>
-        <input placeholder="Email" />
+        <input {...register('email')} placeholder="Email" />
       </div>
 
       <div>
         <label>Password</label>
-        <input type="password" placeholder="Password" />
+        <input {...register('password')} type="password" placeholder="Password" />
       </div>
 
       <div>
         <label>Biography</label>
-        <textarea placeholder="Tell us about yourself..." />
+        <textarea {...register('biography')} placeholder="Tell us about yourself..." />
       </div>
 
       <div>
         <label>Job Role</label>
-        <select>
+        <select {...register('jobRole')}>
           <option value="">Select...</option>
           <option value="developer">Developer</option>
           <option value="designer">Designer</option>
@@ -34,15 +40,15 @@ export const SignUp = () => {
       <div>
         Experience Level
         <label>
-          <input type="radio" value="junior" />
+          <input {...register('experienceLevel')} type="radio" value="junior" />
           Junior
         </label>
         <label>
-          <input type="radio" value="mid" />
+          <input {...register('experienceLevel')} type="radio" value="mid" />
           Mid-level
         </label>
         <label>
-          <input type="radio" value="senior" />
+          <input {...register('experienceLevel')} type="radio" value="senior" />
           Senior
         </label>
       </div>
