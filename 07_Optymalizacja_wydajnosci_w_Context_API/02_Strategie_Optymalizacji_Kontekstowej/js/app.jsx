@@ -23,9 +23,10 @@ export const FavoritesProvider = ({ children }) => {
 
   // Stwórz funkcje `addFavorite` i `removeFavorite` do zarządzania ulubionymi zdjęciami
   // Wykorzystaj `dispatch` do wywołania akcji i useCallback do optymalizacji
-  const addFavorites = useCallback((favorites) => {
-    dispatch({ type: 'ADD_FAVORITE', payload: favorites });
+  const addFavorites = useCallback((photo) => {
+    dispatch({ type: 'ADD_FAVORITE', payload: photo });
   });
+  const removeFavorites = useCallback((favorites) => {});
 
   return <FavoritesContext.Provider value={contextFavorites}>{children}</FavoritesContext.Provider>;
 };
