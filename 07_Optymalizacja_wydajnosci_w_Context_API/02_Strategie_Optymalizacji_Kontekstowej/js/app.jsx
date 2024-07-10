@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 const FavoritesContext = createContext();
 
+//functionReducer
 const favoritesReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_FAVORITE':
@@ -17,10 +18,11 @@ const favoritesReducer = (state, action) => {
 
 // Provider
 export const FavoritesProvider = ({ children }) => {
+  //Logic
   const [state, dispatch] = useReducer(favoritesReducer, []);
-
+  //memoized state
   const contextFavorites = useMemo(() => state, [state]);
-
+  //
   const addFavorites = useCallback(
     (photo) => {
       dispatch({ type: 'ADD_FAVORITE', payload: photo });
@@ -33,6 +35,7 @@ export const FavoritesProvider = ({ children }) => {
     },
     [dispatch]
   );
+  //UI
   return (
     <FavoritesContext.Provider value={{ favorites: contextFavorites, removeFavorites, addFavorites }}>
       {children}
@@ -40,13 +43,13 @@ export const FavoritesProvider = ({ children }) => {
   );
 };
 
-// Hook
+// Hook consuming context
 export const useFavorites = () => useContext(FavoritesContext);
 
 //component
 const Gallery = () => {
   const { favorites, removeFavorites, addFavorites } = useFavorites();
-
+  ////UI only
   return (
     <>
       <div>
@@ -85,6 +88,7 @@ const Gallery = () => {
   );
 };
 
+///wrapped Gallery with Provider
 const App = () => {
   return (
     <FavoritesProvider>
