@@ -4,16 +4,12 @@ import { createRoot } from 'react-dom/client';
 
 const FavoritesContext = createContext();
 
-const initialState = {
-  favorites: [],
-};
-
 const favoritesReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_FAVORITE':
-      return { ...state, favorites: [...state.favorites, action.payload] };
+      return [...state, action.payload];
     case 'REMOVE_FAVORITE':
-      return { ...state, favorites: state.favorites.filter((photo) => photo.id !== action.payload.id) };
+      return state.filter((photo) => photo.id !== action.payload.id);
     default:
       return state;
   }
@@ -21,16 +17,9 @@ const favoritesReducer = (state, action) => {
 
 // Provider
 export const FavoritesProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(favoritesReducer, initialState);
+  const [state, dispatch] = useReducer(favoritesReducer, []);
 
-  return <FavoritesContext.Provider value={{ state, dispatch }}>{children}</FavoritesContext.Provider>;
-};
-
-// Hook
-export const useFavorites = () => {
-  const { state, dispatch } = useContext(FavoritesContext);
-  console.log(state);
-  const contextFavorites = useMemo(() => state.favorites, [state.favorites]);
+  const contextFavorites = useMemo(() => state, [state]);
 
   const addFavorites = useCallback(
     (photo) => {
@@ -44,10 +33,17 @@ export const useFavorites = () => {
     },
     [dispatch]
   );
-  return { favorites: contextFavorites, removeFavorites, addFavorites };
+  return (
+    <FavoritesContext.Provider value={{ favorites: contextFavorites, removeFavorites, addFavorites }}>
+      {children}
+    </FavoritesContext.Provider>
+  );
 };
 
-// Komponent galerii (do uzupełnienia przez kursanta)
+// Hook
+export const useFavorites = () => useContext(FavoritesContext);
+
+//component
 const Gallery = () => {
   const { favorites, removeFavorites, addFavorites } = useFavorites();
 
@@ -87,7 +83,6 @@ const Gallery = () => {
       </div>
     </>
   );
-  // [Twoje zadanie: Uzupełnij logikę wykorzystując `useFavorites` do wyświetlania ulubionych zdjęć]
 };
 
 const App = () => {
