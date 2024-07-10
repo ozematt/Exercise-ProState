@@ -19,11 +19,7 @@ const favoritesReducer = (state, action) => {
 export const FavoritesProvider = ({ children }) => {
   const [state, dispatch] = useReducer(favoritesReducer, []);
 
-  // Uzupełnij kod i użyj useMemo
   const contextFavorites = useMemo(() => state, [state]);
-
-  // Stwórz funkcje `addFavorite` i `removeFavorite` do zarządzania ulubionymi zdjęciami
-  // Wykorzystaj `dispatch` do wywołania akcji i useCallback do optymalizacji
 
   const addFavorites = useCallback(
     (photo) => {
