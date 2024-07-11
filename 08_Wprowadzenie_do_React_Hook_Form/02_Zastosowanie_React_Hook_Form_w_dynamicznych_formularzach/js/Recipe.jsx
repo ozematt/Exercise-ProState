@@ -2,8 +2,16 @@ import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { createLogger } from 'vite';
 
 export const Recipe = () => {
-  const { register, handleSubmit, control } = useForm();
-  const { fields, append, remove } = useFieldArray({ control, name: 'items' });
+  const { register, handleSubmit, control } = useForm({
+    defaultValue: {
+      recipeName: '',
+      servings: '',
+      description: '',
+      ingredients: [{ name: '' }],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
 
   const onSubmit = (data) => console.log(data);
 
@@ -12,17 +20,17 @@ export const Recipe = () => {
       <h2>Add recipe</h2>
       <div>
         <label htmlFor="recipeName">Name</label>
-        <input type="text" id="recipeName" name="recipeName" />
+        <input {...register('recipeName')} type="text" id="recipeName" name="recipeName" />
       </div>
 
       <div>
         <label htmlFor="servings">Servings</label>
-        <input type="number" id="servings" name="servings" />
+        <input {...register('servings')} type="number" id="servings" name="servings" />
       </div>
 
       <div>
         <label htmlFor="description">Description</label>
-        <textarea id="description" name="description"></textarea>
+        <textarea {...register('description')} id="description" name="description"></textarea>
       </div>
 
       <div
