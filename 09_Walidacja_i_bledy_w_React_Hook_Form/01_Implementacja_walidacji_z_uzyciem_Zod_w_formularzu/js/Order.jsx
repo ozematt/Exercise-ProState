@@ -5,7 +5,11 @@ import { z } from 'zod';
 const schema = z.object({});
 
 export const Order = () => {
-  const { register, handleSubmit } = useForm({ resolver: zodResolver(schema) });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(schema) });
 
   // Form submission handler placeholder
   const onSubmit = (event) => {
@@ -20,26 +24,31 @@ export const Order = () => {
       <div>
         <label htmlFor="fullName">Full Name</label>
         <input {...register('fullName')} type="text" id="fullName" name="fullName" />
+        {errors?.fullName && <p>{errors.fullName.message}</p>}
       </div>
 
       <div>
         <label htmlFor="email">Email Address</label>
         <input {...register('email')} type="email" id="email" name="email" />
+        {errors?.email && <p>{errors.email.message}</p>}
       </div>
 
       <div>
         <label htmlFor="address">Delivery Address</label>
-        <input {...register('')} type="text" id="address" name="address" />
+        <input {...register('address')} type="text" id="address" name="address" />
+        {errors?.address && <p>{errors.address.message}</p>}
       </div>
 
       <div>
         <label htmlFor="postalCode">Postal Code</label>
-        <input {...register('address')} type="text" id="postalCode" name="postalCode" />
+        <input {...register('postalCode')} type="text" id="postalCode" name="postalCode" />
+        {errors?.postalCode && <p>{errors.postalCode.message}</p>}
       </div>
 
       <div>
         <label htmlFor="quantity">Quantity</label>
         <input {...register('quantity')} type="number" id="quantity" name="quantity" />
+        {errors?.quantity && <p>{errors.quantity.message}</p>}
       </div>
 
       <button type="submit">Submit Order</button>
