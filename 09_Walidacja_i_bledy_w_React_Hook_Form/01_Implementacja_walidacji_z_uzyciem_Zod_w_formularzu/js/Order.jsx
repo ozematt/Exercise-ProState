@@ -2,7 +2,15 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-const schema = z.object({});
+const schema = z
+  .object({
+    fullName: z.string(),
+    email: z.string().email(),
+    address: z.string().minLength(10),
+    postalCode: z.string().regex(/^\d{2}-\d{3}$/),
+    quantity: z.number().min(1),
+  })
+  .required({ value: true, message: 'Pole wymagane' });
 
 export const Order = () => {
   const {
