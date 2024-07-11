@@ -1,11 +1,14 @@
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { createLogger } from 'vite';
 
 export const Recipe = () => {
   const { register, handleSubmit, control } = useForm();
-  const { fields, append, remove } = useFieldArray();
+  const { fields, append, remove } = useFieldArray({ control, name: 'items' });
+
+  const onSubmit = (data) => console.log(data);
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Add recipe</h2>
       <div>
         <label htmlFor="recipeName">Name</label>
