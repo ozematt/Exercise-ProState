@@ -6,8 +6,8 @@ const schema = z.object({
   fullName: z.string().min(1, 'Imię jest wymagane'),
   email: z.string().email('Email jest wymagany'),
   address: z.string().min(10, 'Musi zawirać min 10 znaków'),
-  postalCode: z.string().regex(/^\d{2}-\d{3}$/, 'Niewłaściwy cod pocztowy'),
-  quantity: z.number().min(1, 'Wpisz numer'),
+  postalCode: z.string().regex(/^\d{2}-\d{3}$/, 'Niewłaściwy kod pocztowy'),
+  quantity: z.coerce.number().min(1, 'Wartość conajmniej 1'),
 });
 
 export const Order = () => {
@@ -17,10 +17,8 @@ export const Order = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
 
-  // Form submission handler placeholder
   const onSubmit = (data) => {
     console.log(data);
-    // Logic to handle form submission will go here
   };
 
   return (
