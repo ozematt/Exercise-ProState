@@ -2,15 +2,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-const schema = z
-  .object({
-    fullName: z.string(),
-    email: z.string().email(),
-    address: z.string().min(10),
-    postalCode: z.string().regex(/^\d{2}-\d{3}$/),
-    quantity: z.number().min(1),
-  })
-  .required({ value: true, message: 'Pole wymagane' });
+const schema = z.object({
+  fullName: z.string().min(1, 'Imię jest wymagane'),
+  email: z.string().email('Email jest wymagany'),
+  address: z.string().min(10, 'Musi zawirać min 10 znaków'),
+  postalCode: z.string().regex(/^\d{2}-\d{3}$/, 'Niewłaściwy cod pocztowy'),
+  quantity: z.number().min(1, 'Wpisz numer'),
+});
 
 export const Order = () => {
   const {
