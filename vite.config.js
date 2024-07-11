@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '08_Wprowadzenie_do_React_Hook_Form/01_Tworzenie_prostego_formularza';
+const exercisePath = '08_Wprowadzenie_do_React_Hook_Form/02_Zastosowanie_React_Hook_Form_w_dynamicznych_formularzach';
 
 /**
  * Don't change those lines below

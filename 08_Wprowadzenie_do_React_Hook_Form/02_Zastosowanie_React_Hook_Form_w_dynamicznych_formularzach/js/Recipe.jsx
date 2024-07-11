@@ -1,4 +1,9 @@
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
+
 export const Recipe = () => {
+  const { register, handleSubmit, control } = useForm();
+  const { fields, append, remove } = useFieldArray();
+
   return (
     <form>
       <h2>Add recipe</h2>
