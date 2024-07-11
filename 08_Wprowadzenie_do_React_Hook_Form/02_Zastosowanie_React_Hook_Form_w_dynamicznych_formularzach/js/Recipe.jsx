@@ -42,7 +42,7 @@ export const Recipe = () => {
         }}
       >
         {fields.map((field, index) => (
-          <div key={field.id} style={{ marginBottom: '10px' }}>
+          <div key={index} style={{ marginBottom: '10px' }}>
             <Controller
               name={`ingredients[${index}].name`}
               control={control}
