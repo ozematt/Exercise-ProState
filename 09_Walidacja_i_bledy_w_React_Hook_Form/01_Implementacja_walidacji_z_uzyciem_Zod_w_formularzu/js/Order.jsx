@@ -6,7 +6,7 @@ const schema = z
   .object({
     fullName: z.string(),
     email: z.string().email(),
-    address: z.string().minLength(10),
+    address: z.string().min(10),
     postalCode: z.string().regex(/^\d{2}-\d{3}$/),
     quantity: z.number().min(1),
   })
