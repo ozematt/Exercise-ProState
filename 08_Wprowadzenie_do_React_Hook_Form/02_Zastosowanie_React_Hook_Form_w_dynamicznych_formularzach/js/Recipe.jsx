@@ -1,6 +1,7 @@
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 
 export const Recipe = () => {
+  // added defaultValues
   const { register, handleSubmit, control } = useForm({
     defaultValue: {
       recipeName: '',
@@ -9,11 +10,11 @@ export const Recipe = () => {
       ingredients: [{ name: '' }],
     },
   });
-
+  //defined controlled field
   const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
-
+  //on Submit function
   const onSubmit = (data) => console.log(data);
-
+  //UI
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Add recipe</h2>
@@ -45,7 +46,7 @@ export const Recipe = () => {
             <Controller
               name={`ingredients[${index}].name`}
               control={control}
-              defaultValue={field.name}
+              defaultValue={field?.name}
               render={({ field }) => <input {...field} placeholder={`Ingredient Name ${index + 1}`} />}
             />
             <button type="button" onClick={() => remove(index)}>
