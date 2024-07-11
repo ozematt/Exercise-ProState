@@ -20,8 +20,8 @@ export const Order = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   // Form submission handler placeholder
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const onSubmit = (data) => {
+    console.log(data);
     // Logic to handle form submission will go here
   };
 
