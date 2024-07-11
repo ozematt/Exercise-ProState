@@ -1,5 +1,4 @@
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
-import { createLogger } from 'vite';
 
 export const Recipe = () => {
   const { register, handleSubmit, control } = useForm({
@@ -41,9 +40,22 @@ export const Recipe = () => {
           marginBottom: '10px',
         }}
       >
-        <input type="text" id="ingredientName-1" name="ingredientName-1" />
-        <input type="text" id="ingredientName-2" name="ingredientName-2" />
-        <input type="text" id="ingredientName-3" name="ingredientName-3" />
+        {fields.map((field, index) => (
+          <div key={field.id} style={{ marginBottom: '10px' }}>
+            <Controller
+              name={`ingredients[${index}].name`}
+              control={control}
+              defaultValue={field.name}
+              render={({ field }) => <input {...field} placeholder={`Ingredient Name ${index + 1}`} />}
+            />
+            <button type="button" onClick={() => remove(index)}>
+              Remove
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={() => append({ name: '' })}>
+          Add Ingredient
+        </button>
       </div>
 
       <button type="submit">Add</button>
