@@ -17,10 +17,13 @@ export const EventRegistrationForm = () => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
   });
+
+  const showPreferences = () => watch('inPerson');
 
   const onSubmit = (data) => console.log(data);
 
@@ -45,14 +48,15 @@ export const EventRegistrationForm = () => {
         helperText={errors?.email && errors.email.message}
       />
 
-      {/*<RadioGroup>*/}
-      {/*  <FormControlLabel value="online" label="Online" />*/}
-      {/*  <FormControlLabel value="inPerson" label="In person" />*/}
-      {/*</RadioGroup>*/}
+      <RadioGroup onChange={showPreferences}>
+        <FormControlLabel value="online" label="Online" />
+        <FormControlLabel value="inPerson" label="In person" />
+      </RadioGroup>
+
       <Controller
         name="dietaryPreferences"
         control={control}
-        render={({ field, fildState: { error } }) => (
+        render={({ field, fieldState: { error } }) => (
           <TextField
             {...field}
             label="Dietary preferences"
