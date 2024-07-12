@@ -2,7 +2,11 @@ import { useForm } from 'react-hook-form';
 import { TextField, Button } from '@mui/material';
 
 export const Login = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = (data) => console.log(data);
 
