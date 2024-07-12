@@ -13,7 +13,9 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
   const onSubmit = (data) => console.log(data);
 
