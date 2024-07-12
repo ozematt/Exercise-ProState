@@ -6,13 +6,18 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const schema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string().email(),
+  firstName: z.string().min(1, 'Pole wymagane'),
+  lastName: z.string().min(1, 'Pole wymagane'),
+  email: z.string().email('Email musi mieć poprawny format'),
 });
 
 export const EventRegistrationForm = () => {
-  const { register, handleSubmit, control } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(schema),
   });
 
@@ -20,8 +25,18 @@ export const EventRegistrationForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField label="First name" {...register('firstName')} />
-      <TextField label="Last name" {...register('lastName')} />
+      <TextField
+        label="First name"
+        {...register('firstName')}
+        error={!!errors?.firstName}
+        helperText={errors?.firstName && errors.firstName.message}
+      />
+      <TextField
+        label="Last name"
+        {...register('lastName')}
+        error={!!errors?.lastName}
+        helperText={errors?.lastName && errors.lastName.message}
+      />
       <TextField label="E-mail" {...register('email')} />
 
       <RadioGroup>
