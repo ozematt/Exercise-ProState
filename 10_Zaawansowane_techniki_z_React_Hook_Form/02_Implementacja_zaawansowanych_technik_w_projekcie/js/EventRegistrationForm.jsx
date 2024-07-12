@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextField, RadioGroup, FormControlLabel, Button } from '@mui/material';
+import { TextField, RadioGroup, FormControlLabel, Button, Radio } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,8 +23,9 @@ export const EventRegistrationForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const showPreferences = () => watch('inPerson');
+  const showPreferences = watch('options');
 
+  console.log(showPreferences);
   const onSubmit = (data) => console.log(data);
 
   return (
@@ -47,24 +48,32 @@ export const EventRegistrationForm = () => {
         error={!!errors?.email}
         helperText={errors?.email && errors.email.message}
       />
-
-      <RadioGroup onChange={showPreferences}>
-        <FormControlLabel value="online" label="Online" />
-        <FormControlLabel value="inPerson" label="In person" />
-      </RadioGroup>
-
       <Controller
-        name="dietaryPreferences"
         control={control}
-        render={({ field, fieldState: { error } }) => (
-          <TextField
-            {...field}
-            label="Dietary preferences"
-            error={!!error}
-            helperText={errors?.dietaryPreferences && errors.dietaryPreferences.message}
-          />
+        defaultValue=""
+        render={({ field }) => (
+          <RadioGroup {...field}>
+            <FormControlLabel value="online" label="Online" control={<Radio />} />
+            <FormControlLabel value="inPerson" label="In person" control={<Radio />} />
+          </RadioGroup>
         )}
-      ></Controller>
+        name="options"
+      />
+
+      {showPreferences === 'inPerson' && (
+        <Controller
+          name="dietaryPreferences"
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <TextField
+              {...field}
+              label="Dietary preferences"
+              error={!!error}
+              helperText={errors?.dietaryPreferences && errors.dietaryPreferences.message}
+            />
+          )}
+        />
+      )}
 
       <Button type="submit">Register</Button>
     </form>
