@@ -11,14 +11,14 @@ export const Login = () => {
       <TextField
         label="Username"
         {...register('userName', { required: true })}
-        error={errors.userName}
-        helperText={errors.userName ? 'Username is required' : ''}
+        error={errors?.userName}
+        helperText={errors?.userName ? 'Username is required' : ''}
       />
       <TextField
         label="Email"
         {...register('email', { pattern: /^\S+@\S+.\S+$/ })}
-        error={errors.email}
-        helperText={errors.email ? 'Invalid email format' : ''}
+        error={errors?.email}
+        helperText={errors?.email ? 'Invalid email format' : ''}
       />
       <Button type="submit">Submit</Button>
     </form>

@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '09_Walidacja_i_bledy_w_React_Hook_Form/01_Implementacja_walidacji_z_uzyciem_Zod_w_formularzu';
+const exercisePath = '10_Zaawansowane_techniki_z_React_Hook_Form/01_Debugowanie_formularzy_z_React_Hook_Form';
 
 /**
  * Don't change those lines below
