@@ -9,6 +9,7 @@ const schema = z.object({
   firstName: z.string().min(1, 'Pole wymagane'),
   lastName: z.string().min(1, 'Pole wymagane'),
   email: z.string().email('Email musi mieć poprawny format'),
+  dietaryPreferences: z.string().min(10),
 });
 
 export const EventRegistrationForm = () => {
@@ -37,14 +38,29 @@ export const EventRegistrationForm = () => {
         error={!!errors?.lastName}
         helperText={errors?.lastName && errors.lastName.message}
       />
-      <TextField label="E-mail" {...register('email')} />
+      <TextField
+        label="E-mail"
+        {...register('email')}
+        error={!!errors?.email}
+        helperText={errors?.email && errors.email.message}
+      />
 
-      <RadioGroup>
-        <FormControlLabel value="online" label="Online" />
-        <FormControlLabel value="inPerson" label="In person" />
-      </RadioGroup>
-
-      <TextField label="Dietary preferences" />
+      {/*<RadioGroup>*/}
+      {/*  <FormControlLabel value="online" label="Online" />*/}
+      {/*  <FormControlLabel value="inPerson" label="In person" />*/}
+      {/*</RadioGroup>*/}
+      <Controller
+        name="dietaryPreferences"
+        control={control}
+        render={({ field, fildState: { error } }) => (
+          <TextField
+            {...field}
+            label="Dietary preferences"
+            error={!!error}
+            helperText={errors?.dietaryPreferences && errors.dietaryPreferences.message}
+          />
+        )}
+      ></Controller>
 
       <Button type="submit">Register</Button>
     </form>
