@@ -6,11 +6,11 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const schema = z.object({
-  firstName: z.string().min(1, 'Pole wymagane'),
-  lastName: z.string().min(1, 'Pole wymagane'),
-  email: z.string().email('Email musi mieć poprawny format'),
-  options: z.enum(['onLine', 'inPerson']), /// pole musi zawierać jedno z tych wartości
-  dietaryPreferences: z.string().optional(),
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  email: z.string().email('Invalid email format'),
+  options: z.enum(['online', 'inPerson']), /// <-----enum - one of options
+  dietaryPreferences: z.string().optional(), /// <---------important with optional options
 });
 
 export const EventRegistrationForm = () => {
@@ -58,6 +58,7 @@ export const EventRegistrationForm = () => {
       <FormControl component="fieldset" margin="normal">
         <FormLabel component="legend">Participation Preference</FormLabel>
         <Controller
+          defaultValue=""
           name="options"
           control={control}
           render={({ field }) => (
