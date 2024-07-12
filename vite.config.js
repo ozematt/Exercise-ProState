@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '10_Zaawansowane_techniki_z_React_Hook_Form/01_Debugowanie_formularzy_z_React_Hook_Form';
+const exercisePath = '10_Zaawansowane_techniki_z_React_Hook_Form/02_Implementacja_zaawansowanych_technik_w_projekcie';
 
 /**
  * Don't change those lines below
