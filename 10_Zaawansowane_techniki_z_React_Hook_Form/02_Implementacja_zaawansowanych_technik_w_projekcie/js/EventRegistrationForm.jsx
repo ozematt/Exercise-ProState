@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { TextField, RadioGroup, FormControlLabel, Button } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -16,8 +16,10 @@ export const EventRegistrationForm = () => {
     resolver: zodResolver(schema),
   });
 
+  const onSubmit = (data) => console.log(data);
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <TextField label="First name" {...register('firstName')} />
       <TextField label="Last name" {...register('lastName')} />
       <TextField label="E-mail" {...register('email')} />
