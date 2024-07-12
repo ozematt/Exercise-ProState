@@ -12,15 +12,15 @@ const schema = z.object({
 });
 
 export const EventRegistrationForm = () => {
-  const {} = useForm({
+  const { register, handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
   });
 
   return (
     <form>
-      <TextField label="First name" />
-      <TextField label="Last name" />
-      <TextField label="E-mail" />
+      <TextField label="First name" {...register('firstName')} />
+      <TextField label="Last name" {...register('lastName')} />
+      <TextField label="E-mail" {...register('email')} />
 
       <RadioGroup>
         <FormControlLabel value="online" label="Online" />
