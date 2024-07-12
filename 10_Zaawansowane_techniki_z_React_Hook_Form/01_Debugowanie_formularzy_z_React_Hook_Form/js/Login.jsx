@@ -25,13 +25,13 @@ export const Login = () => {
         label="Username"
         {...register('userName')}
         error={!!errors?.userName}
-        helperText={errors?.userName && 'Username is required'}
+        helperText={errors?.userName && 'Nazwa użytkownika jest wymagana'}
       />
       <TextField
         label="Email"
         {...register('email')}
         error={!!errors?.email}
-        helperText={errors?.email && 'Invalid email format'}
+        helperText={errors?.email && 'Niewłaściwy format emaila'}
       />
       <Button type="submit">Submit</Button>
     </form>
