@@ -1,5 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { TextField, Button } from '@mui/material';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const schema = z.object({
+  userName: z.string(),
+  email: z.string().email(),
+});
 
 export const Login = () => {
   const {
@@ -20,7 +27,7 @@ export const Login = () => {
       />
       <TextField
         label="Email"
-        {...register('email', { pattern: /^\S+@\S+.\S+$/ })}
+        {...register('email')}
         error={errors?.email}
         helperText={errors?.email ? 'Invalid email format' : ''}
       />
