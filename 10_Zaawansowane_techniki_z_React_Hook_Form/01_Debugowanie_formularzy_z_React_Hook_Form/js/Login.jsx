@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const schema = z.object({
-  userName: z.string().min(1, ''),
+  userName: z.string().min(1),
   email: z.string().email(),
 });
 
@@ -24,14 +24,14 @@ export const Login = () => {
       <TextField
         label="Username"
         {...register('userName')}
-        error={errors?.userName}
+        error={!!errors?.userName}
         helperText={errors?.userName && 'Username is required'}
       />
       <TextField
         label="Email"
         {...register('email')}
-        error={errors?.email}
-        helperText={errors?.email ? 'Invalid email format' : ''}
+        error={!!errors?.email}
+        helperText={errors?.email && 'Invalid email format'}
       />
       <Button type="submit">Submit</Button>
     </form>
