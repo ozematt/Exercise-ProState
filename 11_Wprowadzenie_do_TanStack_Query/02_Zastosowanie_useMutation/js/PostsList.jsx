@@ -1,4 +1,12 @@
+import { useForm } from 'react-hook-form';
+
 export const PostsList = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ defaultValues: {} });
+
   return (
     <div>
       <form>
