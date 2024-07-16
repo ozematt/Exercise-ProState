@@ -31,32 +31,5 @@
       "price": 75
     }
   ],
-  "orders": [
-    {
-      "id": "3649",
-      "firstName": "sss",
-      "lastName": "sss",
-      "address": "sss",
-      "cart": [
-        {
-          "id": "4",
-          "name": "Smartwatch Fitness Tracker",
-          "description": "Keep track of your fitness goals and monitor your health.",
-          "price": 199
-        },
-        {
-          "id": "3",
-          "name": "Organic Cotton T-shirt",
-          "description": "Soft and comfortable t-shirt made from 100% organic cotton.",
-          "price": 30
-        },
-        {
-          "id": "2",
-          "name": "Wireless Bluetooth Headphones",
-          "description": "High-quality sound with noise cancellation feature.",
-          "price": 120
-        }
-      ]
-    }
-  ]
+  "orders": []
 }
