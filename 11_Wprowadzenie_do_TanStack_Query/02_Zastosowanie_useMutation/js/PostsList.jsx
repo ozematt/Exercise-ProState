@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const addPost = async (newPost) => {
-  const { data } = await axios.post('/posts', newPost);
+  const { data } = await axios.post('http://localhost:3001/posts', newPost);
   return data;
 };
 
@@ -27,7 +27,6 @@ export const PostsList = () => {
   } = useForm({ defaultValues: { title: '', body: '' } });
 
   const { data, error, isPending, isError } = useQuery({ queryKey: ['posts'], queryFn: getPosts, retry: 3 });
-  console.log(data);
 
   const mutation = useMutation({
     mutationFn: addPost,
@@ -36,12 +35,23 @@ export const PostsList = () => {
     },
   });
 
+  const deletePostMutation = useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] }); // Refreshing data after deleted
+    },
+  });
+
+  const onSubmit = (newPost) => {
+    mutation.mutate(newPost);
+  };
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register('title')} type="text" placeholder="Title" />
         <textarea {...register('body')} placeholder="Body" />
-        <button>Add Post</button>
+        <button type="submit">Add Post</button>
       </form>
       {isPending && <div>Loading...</div>}
       {isError && <div>{error.message}</div>}
@@ -51,14 +61,13 @@ export const PostsList = () => {
             <li style={{ padding: '20px' }} key={post.id}>
               <h6>{post.title}</h6>
               <p>{post.body}</p>
-              <button>Delete post</button>
+              <button onClick={() => deletePostMutation.mutate(post.id)}>Delete post</button>
+              {deletePostMutation.isPending && <span>Deleting...</span>}
+              {deletePostMutation.isError && <span>Error: {deletePostMutation.error.message}</span>}
             </li>
           ))}
         </ol>
       )}
-
-      {/* Przycisk do usuwania posta; użyj odpowiednio w kontekście listy postów */}
-      {/* <button>Delete Post</button> */}
     </div>
   );
 };
