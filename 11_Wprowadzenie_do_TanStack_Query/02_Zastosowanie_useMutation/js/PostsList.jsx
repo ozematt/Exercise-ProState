@@ -1,4 +1,12 @@
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:3001';
+
+const addPost = async (newPost) => {
+  const { data } = await axios.post('/posts', newPost);
+  return data;
+};
 
 export const PostsList = () => {
   const {
