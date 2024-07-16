@@ -8,7 +8,7 @@ const fetchData = async () => {
 
 export const PostsList = () => {
   const { isPending, data, isError, error } = useQuery({ queryKey: ['posts'], queryFn: fetchData });
-  console.log(data);
+
   return (
     <>
       {isPending && <div>Loading...</div>}
