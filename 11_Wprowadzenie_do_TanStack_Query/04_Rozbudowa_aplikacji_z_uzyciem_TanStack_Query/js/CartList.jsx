@@ -3,7 +3,6 @@ import { useCartContext } from './CartContext.jsx';
 
 export const CartList = () => {
   const { removeFromCart, cart } = useCartContext();
-  console.log(cart);
 
   // const totalCartPrice = cart.length > 0 && cart.map((product) => product.price).reduce((a, b) => a + b);
   const totalCartPrice = cart.reduce((total, product) => total + product.price, 0); //sum cart prices

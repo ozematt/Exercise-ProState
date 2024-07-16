@@ -13,7 +13,6 @@ export const Comments = () => {
     staleTime: 5000,
     refetchOnWindowFocus: true,
   });
-  console.log(data);
 
   const addComment = useMutation({
     mutationFn: () => {
