@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { TextField, Button, Typography } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCartContext } from './CartContext.jsx';
 
 export const OrderForm = () => {
+  const queryClient = useQueryClient();
+
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       firstName: '',
@@ -19,6 +21,9 @@ export const OrderForm = () => {
         method: 'POST',
         body: JSON.stringify(formData),
       }).then((res) => res.json());
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
   });
 
