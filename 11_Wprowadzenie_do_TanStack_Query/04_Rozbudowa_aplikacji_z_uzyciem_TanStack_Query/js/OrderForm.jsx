@@ -1,11 +1,29 @@
 import { useForm } from 'react-hook-form';
 import { TextField, Button, Typography } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
+import { useCartContext } from './CartContext.jsx';
 
 export const OrderForm = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      address: '',
+    },
+  });
+  const { cart } = useCartContext();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const mutation = useMutation({
+    mutationFn: (formData) => {
+      return fetch('http://localhost:3001/orders', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+      }).then((res) => res.json());
+    },
+  });
+
+  const onSubmit = (formData) => {
+    mutation.mutate({ ...formData, cart });
     reset();
   };
 
