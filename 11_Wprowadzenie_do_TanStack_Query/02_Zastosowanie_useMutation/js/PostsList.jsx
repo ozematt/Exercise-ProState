@@ -5,13 +5,13 @@ export const PostsList = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues: {} });
+  } = useForm({ defaultValues: { title: '', body: '' } });
 
   return (
     <div>
       <form>
-        <input type="text" placeholder="Title" />
-        <textarea placeholder="Body" />
+        <input {...register('title')} type="text" placeholder="Title" />
+        <textarea {...register('body')} placeholder="Body" />
         <button>Add Post</button>
       </form>
       {/* Przycisk do usuwania posta; użyj odpowiednio w kontekście listy postów */}
