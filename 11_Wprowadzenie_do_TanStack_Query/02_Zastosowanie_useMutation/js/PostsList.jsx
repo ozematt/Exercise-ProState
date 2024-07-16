@@ -8,6 +8,11 @@ const addPost = async (newPost) => {
   return data;
 };
 
+const deletePost = async (id) => {
+  const { data } = await axios.delete(`/posts/${id}`);
+  return data;
+};
+
 export const PostsList = () => {
   const {
     register,
