@@ -1,10 +1,17 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { queryClient } from './app.jsx';
 
 axios.defaults.baseURL = 'http://localhost:3001';
 
 const addPost = async (newPost) => {
   const { data } = await axios.post('/posts', newPost);
+  return data;
+};
+
+const getPosts = async () => {
+  const { data } = await axios.get('/posts');
   return data;
 };
 
@@ -19,6 +26,10 @@ export const PostsList = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: { title: '', body: '' } });
+
+  const { data, error } = useQuery({ queryKey: 'posts', queryFn: getPosts }, { retry: 3 });
+
+  const mutation = useMutation({ mutationFn: addPost });
 
   return (
     <div>
