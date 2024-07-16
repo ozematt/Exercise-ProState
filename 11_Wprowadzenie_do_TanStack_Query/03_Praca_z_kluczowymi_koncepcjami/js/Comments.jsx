@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const Comments = () => {
-  const { data, error, isPending, isError } = useQuery({
+  const { data, error, isPending, isError, refetch, isStale } = useQuery({
     queryKey: ['comments'],
     queryFn: () => {
       return fetch('http://localhost:3001/comments', {
@@ -10,6 +10,8 @@ export const Comments = () => {
         return response.json();
       });
     },
+    staleTime: 5000,
+    refetchOnWindowFocus: true,
   });
   console.log(data);
 
@@ -28,6 +30,7 @@ export const Comments = () => {
   return (
     <div>
       <button onClick={addComment.mutate}>Add random comment</button>
+      <button onClick={() => refetch()}>Refetch comments</button>
       {isPending && <div>Loading...</div>}
       {isError && <div>{error.message}</div>}
       {data && (
@@ -40,6 +43,7 @@ export const Comments = () => {
           ))}
         </ol>
       )}
+      {isStale ? <div>Data is not fresh</div> : <div>Data is up-to-date</div>}
     </div>
   );
 };

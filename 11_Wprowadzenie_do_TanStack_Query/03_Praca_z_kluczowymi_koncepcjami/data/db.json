@@ -1,25 +1,114 @@
 {
   "comments": [
     {
-      "id": 1,
+      "id": "1",
       "author": "Jan Kowalski",
       "content": "To jest bardzo interesujący komentarz."
     },
     {
-      "id": 2,
+      "id": "2",
       "author": "Anna Nowak",
       "content": "Zgadzam się z przedmówcą!"
     },
     {
-      "id": 3,
+      "id": "3",
       "author": "Michał Zalewski",
       "content": "Mam zupełnie inne zdanie na ten temat."
     },
     {
-      "id": 4,
+      "id": "4",
       "author": "Katarzyna Wójcik",
       "content": "Ciekawe, jakie będą kolejne kroki w tej sprawie."
-
+    },
+    {
+      "id": "fa13",
+      "author": "User 4.317565145084494",
+      "content": "Comment 0.20463529249093648"
+    },
+    {
+      "id": "5e85",
+      "author": "User 6.86403627211649",
+      "content": "Comment 0.04750103873736222"
+    },
+    {
+      "id": "ec86",
+      "author": "User 4.002027240983104",
+      "content": "Comment 0.7795031880215844"
+    },
+    {
+      "id": "9a85",
+      "author": "User 0.41382392589094374",
+      "content": "Comment 0.48927124605151473"
+    },
+    {
+      "id": "0251",
+      "author": "User 4.938014790842957",
+      "content": "Comment 0.12321461580694937"
+    },
+    {
+      "id": "3db3",
+      "author": "User 9.370487397562055",
+      "content": "Comment 0.4262972610471967"
+    },
+    {
+      "id": "52a5",
+      "author": "User 3.2703492859481975",
+      "content": "Comment 0.33856444443046785"
+    },
+    {
+      "id": "78ca",
+      "author": "User 1.4577485633553278",
+      "content": "Comment 0.4573662313203315"
+    },
+    {
+      "id": "3e5a",
+      "author": "User 0.4725257882980416",
+      "content": "Comment 0.25185647302143543"
+    },
+    {
+      "id": "5a3d",
+      "author": "User 5.022356272451236",
+      "content": "Comment 0.43506022521491783"
+    },
+    {
+      "id": "60f7",
+      "author": "User 5.417904133212936",
+      "content": "Comment 0.4231316491513175"
+    },
+    {
+      "id": "1e40",
+      "author": "User 5.125477788219149",
+      "content": "Comment 0.840884115605762"
+    },
+    {
+      "id": "96f3",
+      "author": "User 1.7096453891648111",
+      "content": "Comment 0.32546886048278334"
+    },
+    {
+      "id": "a57a",
+      "author": "User 3.756510134538742",
+      "content": "Comment 0.688316287149304"
+    },
+    {
+      "id": "4abb",
+      "author": "User 1.7758333562532091",
+      "content": "Comment 0.41007971285185163"
+    },
+    {
+      "id": "68b1",
+      "author": "User 5.450722938496377",
+      "content": "Comment 0.3624397216981987"
+    },
+    {
+      "id": "b375",
+      "author": "User 5.816147642433251",
+      "content": "Comment 0.646705201656808"
+    },
+    {
+      "id": "b97e",
+      "author": "User 7.420010029328797",
+      "content": "Comment 0.620183769020392"
     }
   ]
 }
