@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '11_Wprowadzenie_do_TanStack_Query/02_Zastosowanie_useMutation';
+const exercisePath = '11_Wprowadzenie_do_TanStack_Query/03_Praca_z_kluczowymi_koncepcjami';
 
 /**
  * Don't change those lines below

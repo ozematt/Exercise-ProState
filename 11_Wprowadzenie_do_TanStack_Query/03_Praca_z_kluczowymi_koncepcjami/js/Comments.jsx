@@ -1,6 +1,18 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const Comments = () => {
+  const { data, error, isPending, isError } = useQuery({
+    queryKey: ['comments'],
+    queryFn: () => {
+      return fetch('http://localhost:3001/comments', {
+        method: 'GET',
+      }).then((response) => {
+        return response.json();
+      });
+    },
+  });
+  console.log(data);
+
   const addComment = useMutation({
     mutationFn: () => {
       return fetch('http://localhost:3001/comments', {
@@ -16,6 +28,18 @@ export const Comments = () => {
   return (
     <div>
       <button onClick={addComment.mutate}>Add random comment</button>
+      {isPending && <div>Loading...</div>}
+      {isError && <div>{error.message}</div>}
+      {data && (
+        <ol>
+          {data.map((comment) => (
+            <li style={{ padding: '10px' }} key={comment.id}>
+              <h6>{comment.content}</h6>
+              <p>{comment.author}</p>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 };
