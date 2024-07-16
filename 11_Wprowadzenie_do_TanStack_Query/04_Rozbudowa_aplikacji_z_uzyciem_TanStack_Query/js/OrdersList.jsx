@@ -1,11 +1,24 @@
 import { Typography, Card, CardContent, List, ListItem, ListItemText, Button } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const OrdersList = () => {
+  const queryClient = useQueryClient();
+
   const { data } = useQuery({
     queryKey: ['orders'],
     queryFn: () => fetch('http://localhost:3001/orders').then((res) => res.json()),
   });
+
+  const mutation = useMutation({
+    mutationFn: (id) => fetch(`http://localhost:3001/orders/${id}`, { method: 'DELETE' }).then((res) => res.json()),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+    },
+  });
+
+  const handleDelete = (id) => {
+    mutation.mutate(id);
+  };
 
   return (
     <div>
@@ -27,7 +40,7 @@ export const OrdersList = () => {
                   </ListItem>
                 ))}
               </List>
-              <Button variant="contained" color="error">
+              <Button variant="contained" color="error" onClick={() => handleDelete(order.id)}>
                 Delete
               </Button>
             </CardContent>
