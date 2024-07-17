@@ -15,7 +15,7 @@ const fetchPhotos = async ({ pageParam }) => {
 export const PhotosGrid = () => {
   //use ref on div
   const containerRef = useRef(null);
-
+  //use hook on div
   const { ref, entry } = useIntersection({
     root: containerRef.current,
     threshold: 1,
@@ -24,7 +24,7 @@ export const PhotosGrid = () => {
   const { data, isPending, isError, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['photos'],
     queryFn: fetchPhotos,
-    initialPageParam: 1,
+    initialPageParam: 1, //start page
     getNextPageParam: (lastPage, _, lastPageParam) => {
       if (lastPage.length === 0) {
         return undefined;
