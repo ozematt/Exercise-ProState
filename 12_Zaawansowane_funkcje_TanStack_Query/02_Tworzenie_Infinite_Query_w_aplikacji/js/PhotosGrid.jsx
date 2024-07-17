@@ -1,4 +1,4 @@
-import { useEffect, useRef, Fragment, useState } from 'react';
+import React, { useEffect, useRef, Fragment, useState } from 'react';
 import { useIntersection } from '@mantine/hooks';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
@@ -13,12 +13,13 @@ const fetchPhotos = async ({ pageParam }) => {
 };
 
 export const PhotosGrid = () => {
+  //use ref on div
   const containerRef = useRef(null);
+
   const { ref, entry } = useIntersection({
     root: containerRef.current,
     threshold: 1,
   });
-  const [page, setPage] = useState(1);
 
   const {
     data: photos,
@@ -30,10 +31,14 @@ export const PhotosGrid = () => {
   } = useInfiniteQuery({
     queryKey: ['photos'],
     queryFn: fetchPhotos,
-    getNextPageParam: (lastPage, page) => lastPage.nextCursor,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, _, lastPageParam) => {
+      if (lastPage.length === 0) {
+        return undefined;
+      }
+      return lastPageParam + 1;
+    },
   });
-
-  // Użyj useInfiniteQuery do pobrania zdjęć z API
 
   useEffect(() => {
     if (entry && entry.isIntersecting) {
@@ -59,7 +64,18 @@ export const PhotosGrid = () => {
           gridTemplateColumns: 'repeat(3, 1fr)',
         }}
       >
-        {/* Wyświetl zdjęcia z tytułami */}
+        <div>
+          {photos.pages.map((page, index) => (
+            <React.Fragment key={index}>
+              {page.map((photo) => (
+                <div key={photo.id}>
+                  <img src={photo.thumbnailUrl} alt={photo.title} />
+                  <h6>{photo.title}</h6>
+                </div>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
         <div ref={ref} />
       </div>
     </>
