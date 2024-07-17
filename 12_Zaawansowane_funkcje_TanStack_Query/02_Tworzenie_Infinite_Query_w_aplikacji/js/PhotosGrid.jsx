@@ -45,6 +45,9 @@ export const PhotosGrid = () => {
     }
   }, [entry, fetchNextPage]);
 
+  //useEffect: Hook używany do wywołania fetchNextPage za każdym razem,
+  // gdy element z referencją ref jest widoczny i jest dostępna następna strona.
+
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error occurred</div>;
 
