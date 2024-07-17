@@ -26,6 +26,7 @@ export const PhotosGrid = () => {
     queryFn: fetchPhotos,
     initialPageParam: 1, //start page
     getNextPageParam: (lastPage, _, lastPageParam) => {
+      //function for next pageParam
       if (lastPage.length === 0) {
         return undefined;
       }
