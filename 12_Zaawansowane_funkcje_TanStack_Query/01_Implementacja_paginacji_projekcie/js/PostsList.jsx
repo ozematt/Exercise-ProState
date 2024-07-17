@@ -12,17 +12,19 @@ const fetchPosts = async (page = 1, perPage = 10) => {
 };
 
 export const PostsList = () => {
+  ///DATA
+  //state for page
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
 
+  //useQuery
   const {
     data: posts,
     isError,
     isPending,
     error,
   } = useQuery({ queryKey: ['posts', { page, perPage }], queryFn: () => fetchPosts(page, perPage), retry: 3 });
-
-  console.log(page);
+  // arguments first in array, next function with params
 
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>{error.message}</div>;
