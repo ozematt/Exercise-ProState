@@ -21,14 +21,7 @@ export const PhotosGrid = () => {
     threshold: 1,
   });
 
-  const {
-    data: photos,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isError,
-    isPending,
-  } = useInfiniteQuery({
+  const { data, isPending, isError, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['photos'],
     queryFn: fetchPhotos,
     initialPageParam: 1,
@@ -64,18 +57,16 @@ export const PhotosGrid = () => {
           gridTemplateColumns: 'repeat(3, 1fr)',
         }}
       >
-        <div>
-          {photos.pages.map((page, index) => (
-            <React.Fragment key={index}>
-              {page.map((photo) => (
-                <div key={photo.id}>
-                  <img src={photo.thumbnailUrl} alt={photo.title} />
-                  <h6>{photo.title}</h6>
-                </div>
-              ))}
-            </React.Fragment>
-          ))}
-        </div>
+        {data.pages.map((group, i) => (
+          <Fragment key={i}>
+            {group.map((photo) => (
+              <figure key={photo.id}>
+                <img src={photo.thumbnailUrl} />
+                <figcaption>{photo.title}</figcaption>
+              </figure>
+            ))}
+          </Fragment>
+        ))}
         <div ref={ref} />
       </div>
     </>
