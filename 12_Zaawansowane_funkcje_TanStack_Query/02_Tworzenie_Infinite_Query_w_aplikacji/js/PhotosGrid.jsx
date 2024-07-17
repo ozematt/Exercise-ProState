@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, Fragment, useState } from 'react';
+import { useEffect, useRef, Fragment } from 'react';
 import { useIntersection } from '@mantine/hooks';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
@@ -15,7 +15,7 @@ const fetchPhotos = async ({ pageParam }) => {
 export const PhotosGrid = () => {
   //use ref on div
   const containerRef = useRef(null);
-  //use hook on div
+  //use hook on div (hook is from @mantine/hooks)
   const { ref, entry } = useIntersection({
     root: containerRef.current,
     threshold: 1,
