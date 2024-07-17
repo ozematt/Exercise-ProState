@@ -13,12 +13,19 @@ const fetchPosts = async (page = 1, perPage = 10) => {
 
 export const PostsList = () => {
   const [page, setPage] = useState(1);
-  const { data: posts, isError, isPending } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts });
-  // Stwórz stan dla aktualnej strony
-  // Użyj useQuery do pobrania postów z API
+  const [perPage, setPerPage] = useState(10);
+
+  const {
+    data: posts,
+    isError,
+    isPending,
+    error,
+  } = useQuery({ queryKey: ['posts', { page, perPage }], queryFn: () => fetchPosts(page, perPage), retry: 3 });
+
+  console.log(page);
 
   if (isPending) return <div>Loading...</div>;
-  if (isError) return <div>Error occurred</div>;
+  if (isError) return <div>{error.message}</div>;
 
   return (
     <div>
@@ -28,7 +35,8 @@ export const PostsList = () => {
           <p>{post.body}</p>
         </div>
       ))}
-      {/* Przyciski nawigacji */}
+      <button onClick={() => setPage(page - 1)}>Prev</button>
+      <button onClick={() => setPage(page + 1)}>Next</button>
     </div>
   );
 };
