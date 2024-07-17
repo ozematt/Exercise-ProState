@@ -36,6 +36,7 @@ export const PhotosGrid = () => {
     },
   });
   //isFetchingNextPage: Wskazuje, czy następna strona jest aktualnie pobierana.
+  //hasNextPage: Wskazuje, czy istnieje kolejna strona do pobrania.
 
   //initialPageParam: Określa początkową wartość pageParam dla pierwszego wywołania fetchPhotos.
   // W tym przypadku ustawiamy ją na 1, co oznacza, że zapytanie zacznie się od pobierania danych z pierwszej strony.
