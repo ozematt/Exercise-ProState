@@ -1,5 +1,6 @@
-import { useEffect, useRef, Fragment } from 'react';
+import { useEffect, useRef, Fragment, useState } from 'react';
 import { useIntersection } from '@mantine/hooks';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const fetchPhotos = async ({ pageParam }) => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_page=${pageParam}&_per_page=10`);
@@ -16,6 +17,20 @@ export const PhotosGrid = () => {
   const { ref, entry } = useIntersection({
     root: containerRef.current,
     threshold: 1,
+  });
+  const [page, setPage] = useState(1);
+
+  const {
+    data: photos,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isError,
+    isPending,
+  } = useInfiniteQuery({
+    queryKey: ['photos'],
+    queryFn: fetchPhotos,
+    getNextPageParam: (lastPage, page) => lastPage.nextCursor,
   });
 
   // Użyj useInfiniteQuery do pobrania zdjęć z API
