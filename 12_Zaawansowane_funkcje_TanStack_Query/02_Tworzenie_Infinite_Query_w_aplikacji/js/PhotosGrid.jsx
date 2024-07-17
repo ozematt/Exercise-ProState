@@ -1,7 +1,7 @@
 import { useEffect, useRef, Fragment } from 'react';
 import { useIntersection } from '@mantine/hooks';
 import { useInfiniteQuery } from '@tanstack/react-query';
-
+//async function with pageParam
 const fetchPhotos = async ({ pageParam }) => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_page=${pageParam}&_per_page=10`);
 
