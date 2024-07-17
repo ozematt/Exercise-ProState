@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 const fetchPosts = async (page = 1, perPage = 10) => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_per_page=${perPage}`);
 
@@ -9,6 +12,8 @@ const fetchPosts = async (page = 1, perPage = 10) => {
 };
 
 export const PostsList = () => {
+  const [page, setPage] = useState(1);
+  const { data: posts, isError, isPending } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts });
   // Stwórz stan dla aktualnej strony
   // Użyj useQuery do pobrania postów z API
 
