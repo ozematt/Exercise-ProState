@@ -33,6 +33,10 @@ export const PhotosGrid = () => {
       return lastPageParam + 1;
     },
   });
+  //initialPageParam: Określa początkową wartość pageParam dla pierwszego wywołania fetchPhotos.
+  // W tym przypadku ustawiamy ją na 1, co oznacza, że zapytanie zacznie się od pobierania danych z pierwszej strony.
+
+  //
 
   useEffect(() => {
     if (entry && entry.isIntersecting) {
