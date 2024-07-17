@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '11_Wprowadzenie_do_TanStack_Query/04_Rozbudowa_aplikacji_z_uzyciem_TanStack_Query';
+const exercisePath = '12_Zaawansowane_funkcje_TanStack_Query/01_Implementacja_paginacji_projekcie';
 
 /**
  * Don't change those lines below
