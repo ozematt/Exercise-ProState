@@ -20,6 +20,8 @@ export const PhotosGrid = () => {
     root: containerRef.current,
     threshold: 1,
   });
+  //useIntersection: Hook z biblioteki @mantine/hooks,
+  // który monitoruje, czy element jest widoczny w oknie przeglądarki.
 
   const { data, isPending, isError, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['photos'],
@@ -33,6 +35,8 @@ export const PhotosGrid = () => {
       return lastPageParam + 1;
     },
   });
+  //isFetchingNextPage: Wskazuje, czy następna strona jest aktualnie pobierana.
+
   //initialPageParam: Określa początkową wartość pageParam dla pierwszego wywołania fetchPhotos.
   // W tym przypadku ustawiamy ją na 1, co oznacza, że zapytanie zacznie się od pobierania danych z pierwszej strony.
 
