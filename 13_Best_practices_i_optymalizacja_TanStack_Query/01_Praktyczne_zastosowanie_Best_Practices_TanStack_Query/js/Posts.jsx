@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Post } from './Post.jsx';
+import { useState } from 'react';
 
 const getPosts = async () => {
   try {
@@ -21,6 +22,22 @@ const getComments = async () => {
 };
 
 export const Posts = () => {
+  const [section, setSection] = useState(false);
+  console.log(section);
+  const styleOnClick = {
+    width: '100%',
+    height: '100%',
+    border: '1px solid black',
+    marginBottom: '1rem',
+  };
+
+  const style = {
+    width: '100%',
+    height: '100%',
+    border: '1px solid black',
+    marginBottom: '1rem',
+  };
+
   const {
     data: posts,
     isPending,
@@ -42,7 +59,12 @@ export const Posts = () => {
     <>
       <ul>
         {posts.map((post) => (
-          <Post key={post.id} post={post} />
+          <div key={post.id}>
+            <Post post={post} />
+            <div style={style} onClick={() => setSection(!section)}>
+              Comments
+            </div>
+          </div>
         ))}
       </ul>
     </>
