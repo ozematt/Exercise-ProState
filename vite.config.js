@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '12_Zaawansowane_funkcje_TanStack_Query/03_Optymalizacja_strony_e-commerce';
+const exercisePath =
+  '13_Best_practices_i_optymalizacja_TanStack_Query/01_Praktyczne_zastosowanie_Best_Practices_TanStack_Query';
 
 /**
  * Don't change those lines below
