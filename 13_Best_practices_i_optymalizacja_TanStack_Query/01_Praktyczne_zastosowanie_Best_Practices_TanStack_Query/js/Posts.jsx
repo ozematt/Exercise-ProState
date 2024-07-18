@@ -45,6 +45,7 @@ export const Posts = () => {
     isPending,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ['posts'],
     queryFn: getPosts,
@@ -88,6 +89,7 @@ export const Posts = () => {
             </div>
           </div>
         ))}
+        <button onClick={() => refetch()}>Odśwież</button>
       </ul>
     </>
   );
