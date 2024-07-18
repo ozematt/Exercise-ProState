@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { Post } from './Post.jsx';
 
 const getPosts = async () => {
   try {
@@ -11,8 +12,17 @@ const getPosts = async () => {
 };
 
 export const Posts = () => {
-  const { data: posts, isPending, isError, error } = useQuery({ queryKey: ['posts'], queryFn: getPosts, retry: 3 });
-  console.log(posts);
+  const {
+    data: posts,
+    isPending,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['posts'],
+    queryFn: getPosts,
+    retry: 3,
+  });
+
   if (isPending) {
     return <div>Loading...</div>;
   }
@@ -21,11 +31,11 @@ export const Posts = () => {
   }
   return (
     <>
-      <ol>
+      <ul>
         {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
+          <Post key={post.id} post={post} />
         ))}
-      </ol>
+      </ul>
     </>
   );
 };
