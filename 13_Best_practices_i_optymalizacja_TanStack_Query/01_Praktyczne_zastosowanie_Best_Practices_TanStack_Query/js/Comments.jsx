@@ -1,18 +1,18 @@
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 const addComments = async (comment) => {
-  try{
+  try {
     const { data: result } = await axios.post('http://localhost:3001/comments', comment);
     console.log(result);
-  }catch(error){
+  } catch (error) {
     console.error('There has been a problem:', error);
   }
-}
+};
 
 export const Comments = ({ post }) => {
-
+  const queryClient = useQueryClient();
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -24,8 +24,12 @@ export const Comments = ({ post }) => {
 
   const addCommentsMutation = useMutation({
     mutationFn: addComments,
-    onSuccess:
-  })
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['comments'],
+      });
+    },
+  });
 
   const onSubmit = (data) => {
     console.log(data);
