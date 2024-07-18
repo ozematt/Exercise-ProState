@@ -12,12 +12,20 @@ const getPosts = async () => {
 
 export const Posts = () => {
   const { data: posts, isPending, isError, error } = useQuery({ queryKey: ['posts'], queryFn: getPosts, retry: 3 });
-
+  console.log(posts);
   if (isPending) {
     return <div>Loading...</div>;
   }
   if (isError) {
     return <div>{error.message}</div>;
   }
-  return <></>;
+  return (
+    <>
+      <ol>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ol>
+    </>
+  );
 };
