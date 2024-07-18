@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Post } from './Post.jsx';
 import { useState } from 'react';
+import { Comments } from './Comments.jsx';
 
 const getPosts = async () => {
   try {
@@ -79,10 +80,7 @@ export const Posts = () => {
                       </div>
                     ))}
               </ul>
-              <form action="">
-                <input type="text" placeholder="Komentarz..." />
-                <button>Dodaj</button>
-              </form>
+              <Comments post={post.id} />
             </div>
           </div>
         ))}
