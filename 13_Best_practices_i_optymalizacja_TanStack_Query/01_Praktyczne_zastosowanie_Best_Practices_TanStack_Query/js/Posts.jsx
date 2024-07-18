@@ -11,6 +11,15 @@ const getPosts = async () => {
   }
 };
 
+const getComments = async () => {
+  try {
+    const { data: comments } = await axios.get('http://localhost:3001/comments');
+    return comments;
+  } catch (error) {
+    console.error('There has been a problem:', error);
+  }
+};
+
 export const Posts = () => {
   const {
     data: posts,
