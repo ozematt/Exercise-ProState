@@ -75,7 +75,7 @@ export const Posts = () => {
               <p style={style} onClick={() => toggleComments(post.id)}>
                 Comments
               </p>
-              <ul>
+              <ul style={{ marginBottom: '5px' }}>
                 {openPostId === post.id &&
                   comments
                     .filter((comment) => String(comment.postId) === post.id)
