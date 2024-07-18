@@ -4,6 +4,7 @@ import { Post } from './Post.jsx';
 import { useState } from 'react';
 import { Comments } from './Comments.jsx';
 
+//get posts fn
 const getPosts = async () => {
   try {
     const { data: posts } = await axios.get('http://localhost:3001/posts');
@@ -13,6 +14,7 @@ const getPosts = async () => {
   }
 };
 
+//get comments fn
 const getComments = async () => {
   try {
     const { data: comments } = await axios.get('http://localhost:3001/comments');
@@ -23,18 +25,21 @@ const getComments = async () => {
 };
 
 export const Posts = () => {
+  //state with post id
   const [openPostId, setOpenPostId] = useState(null);
 
+  //fn to set post id
   const toggleComments = (postId) => {
     setOpenPostId(openPostId === postId ? null : postId);
   };
+  //style
   const style = {
     width: '100%',
     height: '100%',
     border: '1px solid black',
     marginBottom: '10px',
   };
-
+  //post queries
   const {
     data: posts,
     isPending,
@@ -45,21 +50,20 @@ export const Posts = () => {
     queryFn: getPosts,
     retry: 3,
   });
-  console.log(posts);
-
+  //comments queries
   const { data: comments } = useQuery({
     queryKey: ['comments'],
     queryFn: getComments,
     retry: 3,
   });
-  console.log(comments);
-
+  //validation
   if (isPending) {
     return <div>Loading...</div>;
   }
   if (isError) {
     return <div>{error.message}</div>;
   }
+  //UI
   return (
     <>
       <ul>
