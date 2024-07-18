@@ -11,7 +11,13 @@ const getPosts = async () => {
 };
 
 export const Posts = () => {
-  const { data: posts, isPanding, isError, error } = useQuery({ queryKey: ['posts'], queryFn: getPosts, retry: 3 });
+  const { data: posts, isPending, isError, error } = useQuery({ queryKey: ['posts'], queryFn: getPosts, retry: 3 });
 
-  return null;
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>{error.message}</div>;
+  }
+  return <></>;
 };
