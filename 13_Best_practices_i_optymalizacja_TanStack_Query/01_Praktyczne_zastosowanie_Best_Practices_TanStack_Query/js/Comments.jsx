@@ -32,6 +32,7 @@ export const Comments = ({ post }) => {
   });
 
   const onSubmit = (data) => {
+    addCommentsMutation.mutate(data);
     console.log(data);
   };
 
