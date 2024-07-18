@@ -31,7 +31,7 @@ export const Posts = () => {
     width: '100%',
     height: '100%',
     border: '1px solid black',
-    marginBottom: '1rem',
+    marginBottom: '10px',
   };
 
   const {
@@ -45,6 +45,7 @@ export const Posts = () => {
     retry: 3,
   });
   console.log(posts);
+
   const { data: comments } = useQuery({
     queryKey: ['comments'],
     queryFn: getComments,
@@ -64,14 +65,24 @@ export const Posts = () => {
         {posts.map((post) => (
           <div key={post.id}>
             <Post post={post} />
-            <div style={style} onClick={() => toggleComments(post.id)}>
-              Comments
+            <div style={{ marginBottom: '10px' }}>
+              <p style={style} onClick={() => toggleComments(post.id)}>
+                Comments
+              </p>
               <ul>
                 {openPostId === post.id &&
                   comments
                     .filter((comment) => String(comment.postId) === post.id)
-                    .map((comment) => <li key={comment.id}>{comment.body}</li>)}
+                    .map((comment) => (
+                      <div key={comment.id}>
+                        <li>{comment.body}</li>
+                      </div>
+                    ))}
               </ul>
+              <form action="">
+                <input type="text" placeholder="Komentarz..." />
+                <button>Dodaj</button>
+              </form>
             </div>
           </div>
         ))}
