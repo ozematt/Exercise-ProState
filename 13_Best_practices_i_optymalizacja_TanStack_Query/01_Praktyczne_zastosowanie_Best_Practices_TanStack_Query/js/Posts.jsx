@@ -22,15 +22,11 @@ const getComments = async () => {
 };
 
 export const Posts = () => {
-  const [section, setSection] = useState(false);
-  console.log(section);
-  const styleOnClick = {
-    width: '100%',
-    height: '100%',
-    border: '1px solid black',
-    marginBottom: '1rem',
-  };
+  const [openPostId, setOpenPostId] = useState(null);
 
+  const toggleComments = (postId) => {
+    setOpenPostId(openPostId === postId ? null : postId);
+  };
   const style = {
     width: '100%',
     height: '100%',
@@ -48,6 +44,13 @@ export const Posts = () => {
     queryFn: getPosts,
     retry: 3,
   });
+  console.log(posts);
+  const { data: comments } = useQuery({
+    queryKey: ['comments'],
+    queryFn: getComments,
+    retry: 3,
+  });
+  console.log(comments);
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -61,8 +64,14 @@ export const Posts = () => {
         {posts.map((post) => (
           <div key={post.id}>
             <Post post={post} />
-            <div style={style} onClick={() => setSection(!section)}>
+            <div style={style} onClick={() => toggleComments(post.id)}>
               Comments
+              <ul>
+                {openPostId === post.id &&
+                  comments
+                    .filter((comment) => String(comment.postId) === post.id)
+                    .map((comment) => <li key={comment.id}>{comment.body}</li>)}
+              </ul>
             </div>
           </div>
         ))}
