@@ -1,4 +1,6 @@
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 export const StepOne = () => {
   const { register } = useForm();
@@ -6,10 +8,10 @@ export const StepOne = () => {
   return (
     <>
       <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <input type="text" placeholder="Imię" />
-        <input type="text" placeholder="Nazwisko" />
-        <input type="email" placeholder="Email" />
-        <button>Dalej</button>
+        <TextField type="text" placeholder="Imię" />
+        <TextField type="text" placeholder="Nazwisko" />
+        <TextField type="email" placeholder="Email" />
+        <Link to="/steptwo">Dalej</Link>
       </form>
     </>
   );
