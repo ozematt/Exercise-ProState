@@ -21,7 +21,7 @@ export const StepThree = () => {
           <b>Email: </b>
           {state.email}
         </p>
-        <Link to="/stepone">
+        <Link to="/">
           <Button>Edytuj</Button>
         </Link>
       </div>

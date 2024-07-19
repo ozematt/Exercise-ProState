@@ -5,18 +5,23 @@ import { StepOne } from './StepOne.jsx';
 import { StepTwo } from './StepTwo.jsx';
 import { StepThree } from './StepThree.jsx';
 import { FormContextProvider } from './FormContext.jsx';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <FormContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<StepOne />} />
-          <Route path="/steptwo" element={<StepTwo />} />
-          <Route path="/stepthree" element={<StepThree />} />
-        </Routes>
-      </BrowserRouter>
-    </FormContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <FormContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<StepOne />} />
+            <Route path="/steptwo" element={<StepTwo />} />
+            <Route path="/stepthree" element={<StepThree />} />
+          </Routes>
+        </BrowserRouter>
+      </FormContextProvider>
+    </QueryClientProvider>
   );
 };
 
