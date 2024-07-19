@@ -8,9 +8,9 @@ export const StepOne = () => {
   return (
     <>
       <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <TextField type="text" placeholder="Imię" />
-        <TextField type="text" placeholder="Nazwisko" />
-        <TextField type="email" placeholder="Email" />
+        <TextField {...register('name')} type="text" placeholder="Imię" />
+        <TextField {...register('surname')} type="text" placeholder="Nazwisko" />
+        <TextField {...register('email')} type="email" placeholder="Email" />
         <Link to="/steptwo">Dalej</Link>
       </form>
     </>
