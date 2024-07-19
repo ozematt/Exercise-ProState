@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useMemo, useReducer } from 'rea
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { z } from 'zod';
+import { createLogger } from 'vite';
 
 const FormContext = createContext();
 
@@ -62,18 +63,22 @@ export const FormContextProvider = ({ children }) => {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch({
-      type: 'reset',
-    });
+    formMutation.mutate(state);
   });
 
   const formMutation = useMutation({
     mutationFn: postFormData,
+    onSuccess: (data) => {
+      console.log('Wszystko poszło ok:', data);
+    },
+    onError: (error) => {
+      console.error('Cos poszło nie tak', error);
+    },
   });
 
   return (
     <>
-      <FormContext.Provider value={{ state: memoizedContext, handleChange, handleSubmit, formMutation }}>
+      <FormContext.Provider value={{ state: memoizedContext, handleChange, handleSubmit }}>
         {children}
       </FormContext.Provider>
     </>

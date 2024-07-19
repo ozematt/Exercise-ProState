@@ -6,11 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './FormContext.jsx';
 
 export const StepOne = () => {
-  const { register } = useForm({ resolver: zodResolver(schema) });
-  const { state, handleChange } = useFormContext();
+  const { register, handleSubmit: submit } = useForm({ resolver: zodResolver(schema) });
+  const { state, handleChange, handleSubmit } = useFormContext();
   return (
     <>
-      <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+      <form
+        onSubmit={submit(handleSubmit)}
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+      >
         <h4>Dane Osobowe:</h4>
         <TextField {...register('name')} type="text" placeholder="Imię" value={state.name} onChange={handleChange} />
         <TextField
@@ -28,7 +31,7 @@ export const StepOne = () => {
           onChange={handleChange}
         />
         <Link to="/steptwo">
-          <Button>Dalej</Button>
+          <Button type="submit">Dalej</Button>
         </Link>
       </form>
     </>
