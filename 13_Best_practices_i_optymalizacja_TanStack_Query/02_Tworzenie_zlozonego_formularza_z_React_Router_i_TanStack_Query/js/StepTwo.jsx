@@ -1,4 +1,5 @@
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export const StepTwo = () => {
   return (
@@ -8,6 +9,14 @@ export const StepTwo = () => {
         <TextField type="text" placeholder="Numerdomu/mieszkania" />
         <TextField type="text" placeholder="Miasto" />
         <TextField type="text" placeholder="Kod pocztowy" />
+        <Box>
+          <Link style={{ padding: '10px' }} to="/steptwo">
+            Wstecz
+          </Link>
+          <Link style={{ padding: '10px' }} to="/stepthree">
+            Dalej
+          </Link>
+        </Box>
       </form>
     </>
   );
