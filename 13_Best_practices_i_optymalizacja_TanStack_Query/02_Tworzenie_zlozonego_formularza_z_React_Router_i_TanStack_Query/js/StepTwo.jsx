@@ -6,7 +6,7 @@ import { useFormContext } from './FormContext.jsx';
 export const StepTwo = () => {
   const { register } = useForm();
   const { state, handleChange } = useFormContext();
-
+  console.log(state);
   return (
     <>
       <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>

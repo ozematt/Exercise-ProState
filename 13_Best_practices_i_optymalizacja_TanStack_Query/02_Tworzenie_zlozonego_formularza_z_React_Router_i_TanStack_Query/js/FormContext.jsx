@@ -24,9 +24,9 @@ const reducer = (state, action) => {
 };
 
 export const FormContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(initialState, reducer);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const memoizedConext = useMemo(() => state, [state]);
+  const memoizedContext = useMemo(() => state, [state]);
 
   const handleChange = useCallback((e) => {
     dispatch({
@@ -45,7 +45,7 @@ export const FormContextProvider = ({ children }) => {
 
   return (
     <>
-      <FormContext.Provider value={{ state: memoizedConext, handleChange, handleSubmit }}>
+      <FormContext.Provider value={{ state: memoizedContext, handleChange, handleSubmit }}>
         {children}
       </FormContext.Provider>
     </>
