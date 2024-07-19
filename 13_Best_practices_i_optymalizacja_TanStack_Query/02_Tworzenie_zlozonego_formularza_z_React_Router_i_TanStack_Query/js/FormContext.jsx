@@ -3,16 +3,6 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { z } from 'zod';
 
-const schema = z.object({
-  name: z.string(),
-  surname: z.string(),
-  email: z.string().email(),
-  street: z.string(),
-  houseNumber: z.string(),
-  city: z.string(),
-  postalCode: z.string(),
-});
-
 const FormContext = createContext();
 
 const initialState = {
@@ -44,6 +34,18 @@ const postFormData = async (formData) => {
     console.error('There has been a problem:', error);
   }
 };
+export const schema = z.object({
+  name: z.string().min(1, 'Pole wymagane'),
+  surname: z.string().min(1, 'Pole wymagane'),
+  email: z.string().email({ required: true, message: 'Nieprawidłowy email' }),
+  street: z.string().min(1, 'Pole wymagane'),
+  houseNumber: z.string().min(1, 'Pole wymagane'),
+  city: z.string().min(1, 'Pole wymagane'),
+  postalCode: z
+    .string()
+    .min(1, 'Polewymagane')
+    .regex(/^[0-9]{2}-[0-9]{3}$/, 'Nieprawidłowy kod pocztowy XX-XXX'),
+});
 
 export const FormContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);

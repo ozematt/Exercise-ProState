@@ -2,9 +2,11 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
 import { useFormContext } from './FormContext.jsx';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { schema } from './FormContext.jsx';
 
 export const StepOne = () => {
-  const { register } = useForm();
+  const { register } = useForm({ resolver: zodResolver(schema) });
   const { state, handleChange } = useFormContext();
   return (
     <>
