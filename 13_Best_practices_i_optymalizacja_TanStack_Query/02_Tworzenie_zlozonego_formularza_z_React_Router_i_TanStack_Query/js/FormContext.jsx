@@ -1,5 +1,17 @@
 import { createContext, useCallback, useContext, useMemo, useReducer } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { z } from 'zod';
+
+const schema = z.object({
+  name: z.string(),
+  surname: z.string(),
+  email: z.string().email(),
+  street: z.string(),
+  houseNumber: z.string(),
+  city: z.string(),
+  postalCode: z.string(),
+});
 
 const FormContext = createContext();
 
@@ -24,6 +36,15 @@ const reducer = (state, action) => {
   }
 };
 
+const postFormData = async (formData) => {
+  try {
+    const { data } = await axios.post('http://localhost:3001/formData', formData);
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem:', error);
+  }
+};
+
 export const FormContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -44,11 +65,13 @@ export const FormContextProvider = ({ children }) => {
     });
   });
 
-  const formMutation = useMutation();
+  const formMutation = useMutation({
+    mutationFn: postFormData,
+  });
 
   return (
     <>
-      <FormContext.Provider value={{ state: memoizedContext, handleChange, handleSubmit }}>
+      <FormContext.Provider value={{ state: memoizedContext, handleChange, handleSubmit, formMutation }}>
         {children}
       </FormContext.Provider>
     </>
