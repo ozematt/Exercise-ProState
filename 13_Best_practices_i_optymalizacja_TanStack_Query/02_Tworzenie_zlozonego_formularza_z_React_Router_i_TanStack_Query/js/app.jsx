@@ -11,22 +11,20 @@ const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <FormContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<StepOne />} />
-          <Route path="/steptwo" element={<StepTwo />} />
-          <Route path="/stepthree" element={<StepThree />} />
-        </Routes>
-      </BrowserRouter>
-    </FormContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <FormContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<StepOne />} />
+            <Route path="/steptwo" element={<StepTwo />} />
+            <Route path="/stepthree" element={<StepThree />} />
+          </Routes>
+        </BrowserRouter>
+      </FormContextProvider>
+    </QueryClientProvider>
   );
 };
 
 const container = document.getElementById('app');
 const root = createRoot(container);
-root.render(
-  <QueryClientProvider client={queryClient}>
-    <App />
-  </QueryClientProvider>
-);
+root.render(<App />);

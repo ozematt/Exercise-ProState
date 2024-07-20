@@ -3,7 +3,7 @@ import { useFormContext } from './FormContext.jsx';
 import { Link } from 'react-router-dom';
 
 export const StepThree = () => {
-  const { state, formMutation } = useFormContext();
+  const { state, onSubmit } = useFormContext();
   return (
     <>
       <h4>Podsumowanie i potwierdzenie:</h4>

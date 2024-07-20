@@ -6,35 +6,29 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './FormContext.jsx';
 
 export const StepTwo = () => {
-  const { register } = useForm({ resolver: zodResolver(schema) });
-  const { state, handleChange } = useFormContext();
-  console.log(state);
+  const { register, handleSubmit } = useForm({ resolver: zodResolver(schema) });
+  const { state } = useFormContext();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
-      <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+      >
         <h4>Adres:</h4>
-        <TextField
-          {...register('street')}
-          type="text"
-          placeholder="Ulica"
-          value={state.street}
-          onChange={handleChange}
-        />
+        <TextField {...register('street')} type="text" placeholder="Ulica" defaultValue={state.street} />
         <TextField
           {...register('houseNumber')}
           type="text"
           placeholder="Numerdomu/mieszkania"
-          value={state.houseNumber}
-          onChange={handleChange}
+          defaultValue={state.houseNumber}
         />
-        <TextField {...register('city')} type="text" placeholder="Miasto" value={state.city} onChange={handleChange} />
-        <TextField
-          {...register('postalCode')}
-          type="text"
-          placeholder="Kod pocztowy"
-          value={state.postalCode}
-          onChange={handleChange}
-        />
+        <TextField {...register('city')} type="text" placeholder="Miasto" defaultValue={state.city} />
+        <TextField {...register('postalCode')} type="text" placeholder="Kod pocztowy" defaultValue={state.postalCode} />
         <Box>
           <Link to="/steptwo">
             <Button>Wstecz</Button>
