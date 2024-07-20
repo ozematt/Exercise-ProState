@@ -1,49 +1,39 @@
-import { Box, Button, TextField } from '@mui/material';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useFormContext } from 'react-hook-form';
-
+import { useFormContext } from './FormContext';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { schema } from './FormContext.jsx';
+
+const schema = z.object({
+  street: z.string().min(1),
+  houseNumber: z.string().min(1),
+  city: z.string().min(1),
+  postalCode: z.string().min(1),
+});
 
 export const StepTwo = () => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext({ resolver: zodResolver(schema) });
+  const { handleAddData, data } = useFormContext();
+  const { register, handleSubmit } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: data,
+  });
   const navigate = useNavigate();
 
+  const onSubmit = (data) => {
+    handleAddData(data);
+    navigate('/confirmation');
+  };
+
   return (
-    <>
-      <h4>Adres:</h4>
-      <TextField
-        {...register('street')}
-        label="Street"
-        error={!!errors.street}
-        helperText={errors.street?.message}
-        type="text"
-        placeholder="Ulica"
-      />
-      <TextField {...register('houseNumber')} type="text" placeholder="Numerdomu/mieszkania" />
-      <TextField
-        {...register('city')}
-        label="City"
-        error={!!errors.city}
-        helperText={errors.city?.message}
-        type="text"
-        placeholder="Miasto"
-      />
-      <TextField
-        {...register('postalCode')}
-        label="Postal Code"
-        error={!!errors.postalCode}
-        helperText={errors.postalCode?.message}
-        type="text"
-        placeholder="Kod pocztowy"
-      />
-      <Box>
-        <Button onClick={() => navigate('/stepone')}>Wstecz</Button>
-        <Button onClick={() => navigate('/stepthree')}>Dalej</Button>
-      </Box>
-    </>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('street')} placeholder="Ulica" />
+      <input {...register('houseNumber')} placeholder="Numer domu/mieszkania" />
+      <input {...register('city')} placeholder="Miasto" />
+      <input {...register('postalCode')} placeholder="Kod pocztowy" />
+      <button type="button" onClick={() => navigate('/personal-info')}>
+        Wstecz
+      </button>
+      <button type="submit">Dalej</button>
+    </form>
   );
 };

@@ -1,30 +1,27 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { StepOne } from './StepOne.jsx';
-import { StepTwo } from './StepTwo.jsx';
-import { StepThree } from './StepThree.jsx';
-
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { FormContext } from './FormContext.jsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { StepOne } from './StepOne';
+import { StepTwo } from './StepTwo';
+import { StepThree } from './StepThree';
+import { FormProvider } from './FormContext';
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  return (
+const App = () => (
+  <FormProvider>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <FormContext>
-          <Routes>
-            <Route path="/" element={<StepOne />} />
-            <Route path="/steptwo" element={<StepTwo />} />
-            <Route path="/stepthree" element={<StepThree />} />
-          </Routes>
-        </FormContext>
+        <Routes>
+          <Route path="/" element={<Navigate to="/personal-info" />} />
+          <Route path="/personal-info" element={<StepOne />} />
+          <Route path="/address" element={<StepTwo />} />
+          <Route path="/confirmation" element={<StepThree />} />
+        </Routes>
       </BrowserRouter>
     </QueryClientProvider>
-  );
-};
+  </FormProvider>
+);
 
 const container = document.getElementById('app');
 const root = createRoot(container);

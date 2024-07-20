@@ -1,73 +1,38 @@
-// import React, { useCallback, useMemo, } from 'react';
-// import { useMutation } from '@tanstack/react-query';
-// import axios from 'axios';
-import { z } from 'zod';
-import { useForm, FormProvider } from 'react-hook-form';
-// import {useNavigate} from 'react-router-dom';
+import { createContext, useContext, useState } from 'react';
 
-// const FormContext = createContext();
+const FormContext = createContext();
 
-// const initialState = {
-//   name: '',
-//   surname: '',
-//   email: '',
-//   street: '',
-//   houseNumber: '',
-//   city: '',
-//   postalCode: '',
-// };
+export const FormProvider = ({ children }) => {
+  const [data, setData] = useState(() => JSON.parse(localStorage.getItem('data')));
 
-// const postFormData = async (formData) => {
-//   try {
-//     const { data } = await axios.post('http://localhost:3001/formData', formData);
-//     console.log(data);
-//   } catch (error) {
-//     console.error('There has been a problem:', error);
-//   }
-// };
+  const handleAddData = (newData) => {
+    const newDataSet = { ...data, ...newData };
+    setData(newDataSet);
+    localStorage.setItem('data', JSON.stringify(newDataSet));
+  };
 
-export const schema = z.object({
-  name: z.string().min(1, 'Pole wymagane'),
-  surname: z.string().min(1, 'Pole wymagane'),
-  email: z.string().email({ required: true, message: 'Nieprawidłowy email' }),
-  street: z.string().min(1, 'Pole wymagane'),
-  houseNumber: z.string().min(1, 'Pole wymagane'),
-  city: z.string().min(1, 'Pole wymagane'),
-  postalCode: z
-    .string()
-    .min(1, 'Polewymagane')
-    .regex(/^[0-9]{2}-[0-9]{3}$/, 'Nieprawidłowy kod pocztowy XX-XXX'),
-});
-
-export const FormContext = ({ children }) => {
-  const methods = useForm();
-  // const navigate = useNavigate();
-
-  // const memoizedContext = useMemo(() => ({ state, onSubmit }), [state]);
-
-  // const onSubmit = useCallback(
-  //   (data) => {
-  //     formMutation.mutate(data);
-  //   },
-  //   [formMutation]
-  // );
-
-  // const formMutation = useMutation({
-  //   mutationFn: postFormData,
-  //   onSuccess: (data) => {
-  //     console.log('Wszystko poszło ok:', data);
-  //   },
-  //   onError: (error) => {
-  //     console.error('Cos poszło nie tak', error);
-  //   },
-  // });
-  const onSubmit = (data) => {
-    console.log(data);
+  const clearData = () => {
+    localStorage.removeItem('data');
+    setData(null);
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
-    </FormProvider>
+    <FormContext.Provider
+      value={{
+        handleAddData,
+        clearData,
+        data,
+      }}
+    >
+      {children}
+    </FormContext.Provider>
   );
+};
+
+export const useFormContext = () => {
+  const context = useContext(FormContext);
+  if (!context) {
+    throw new Error('useFormContext must be used within FormProvider');
+  }
+  return context;
 };

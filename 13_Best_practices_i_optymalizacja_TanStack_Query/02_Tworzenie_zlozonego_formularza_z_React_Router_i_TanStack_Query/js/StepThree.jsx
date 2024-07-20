@@ -1,55 +1,55 @@
-import { Button } from '@mui/material';
-
 import { useNavigate } from 'react-router-dom';
-import { useFormContext } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import { useFormContext } from './FormContext';
+
+const sendFormData = async (formData) => {
+  const response = await fetch('http://localhost:3001/form', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to submit form');
+  }
+
+  return response.json();
+};
 
 export const StepThree = () => {
-  const { getValues, handleSubmit } = useFormContext();
   const navigate = useNavigate();
+  const mutation = useMutation({ mutationFn: sendFormData });
+  const { clearData, data } = useFormContext();
+
+  const handleSubmit = () => {
+    mutation.mutate(data, {
+      onSuccess: () => {
+        clearData();
+        alert('Form submitted successfully');
+        navigate('/');
+      },
+    });
+  };
+
+  if (mutation.isLoading) return <div>Submitting...</div>;
+  if (mutation.isError) return <div>Error: {mutation.error.message}</div>;
 
   return (
-    <>
-      <h4>Podsumowanie i potwierdzenie:</h4>
-
+    <div>
+      <h2>Podsumowanie</h2>
       <div>
-        <h5>Dane Osobowe:</h5>
-        <p>
-          <b>Imię: </b>
-          {getValues().name}
-        </p>
-        <p>
-          <b>Nazwisko: </b>
-          {getValues().surname}
-        </p>
-        <p>
-          <b>Email: </b>
-          {getValues().email}
-        </p>
-
-        <Button onClick={() => navigate('/')}>Edytuj</Button>
+        {Object.entries(data).map(([key, value]) => (
+          <div key={key}>
+            <strong>{key}:</strong> {value}
+          </div>
+        ))}
       </div>
-      <div>
-        <h5>Adres:</h5>
-        <p>
-          <b>Ulica: </b>
-          {getValues().street}
-        </p>
-        <p>
-          <b>Numer domu: </b>
-          {getValues().houseNumber}
-        </p>
-        <p>
-          <b>Miasto: </b>
-          {getValues().city}
-        </p>
-        <p>
-          <b>Kod pocztowy: </b>
-          {getValues().postalCode}
-        </p>
-      </div>
-      <Button onClick={() => navigate('/steptwo')}>Edytuj</Button>
-
-      <Button>Wyślij</Button>
-    </>
+      <button type="button" onClick={() => navigate('/personal-info')}>
+        Wstecz
+      </button>
+      <button onClick={handleSubmit}>Wyślij</button>
+    </div>
   );
 };
