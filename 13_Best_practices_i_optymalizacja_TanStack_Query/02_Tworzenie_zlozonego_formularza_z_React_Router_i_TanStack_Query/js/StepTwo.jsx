@@ -1,43 +1,49 @@
 import { Box, Button, TextField } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { useFormContext } from './FormContext.jsx';
+import { useNavigate } from 'react-router-dom';
+import { useFormContext } from 'react-hook-form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './FormContext.jsx';
 
 export const StepTwo = () => {
-  const { register, handleSubmit } = useForm({ resolver: zodResolver(schema) });
-  const { state } = useFormContext();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext({ resolver: zodResolver(schema) });
+  const navigate = useNavigate();
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
-      >
-        <h4>Adres:</h4>
-        <TextField {...register('street')} type="text" placeholder="Ulica" defaultValue={state.street} />
-        <TextField
-          {...register('houseNumber')}
-          type="text"
-          placeholder="Numerdomu/mieszkania"
-          defaultValue={state.houseNumber}
-        />
-        <TextField {...register('city')} type="text" placeholder="Miasto" defaultValue={state.city} />
-        <TextField {...register('postalCode')} type="text" placeholder="Kod pocztowy" defaultValue={state.postalCode} />
-        <Box>
-          <Link to="/steptwo">
-            <Button>Wstecz</Button>
-          </Link>
-          <Link to="/stepthree">
-            <Button>Dalej</Button>
-          </Link>
-        </Box>
-      </form>
+      <h4>Adres:</h4>
+      <TextField
+        {...register('street')}
+        label="Street"
+        error={!!errors.street}
+        helperText={errors.street?.message}
+        type="text"
+        placeholder="Ulica"
+      />
+      <TextField {...register('houseNumber')} type="text" placeholder="Numerdomu/mieszkania" />
+      <TextField
+        {...register('city')}
+        label="City"
+        error={!!errors.city}
+        helperText={errors.city?.message}
+        type="text"
+        placeholder="Miasto"
+      />
+      <TextField
+        {...register('postalCode')}
+        label="Postal Code"
+        error={!!errors.postalCode}
+        helperText={errors.postalCode?.message}
+        type="text"
+        placeholder="Kod pocztowy"
+      />
+      <Box>
+        <Button onClick={navigate('/steptwo')}>Wstecz</Button>
+        <Button onClick={navigate('/stepthree')}>Dalej</Button>
+      </Box>
     </>
   );
 };
