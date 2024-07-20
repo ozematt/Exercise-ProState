@@ -41,8 +41,8 @@ export const StepTwo = () => {
         placeholder="Kod pocztowy"
       />
       <Box>
-        <Button onClick={navigate('/steptwo')}>Wstecz</Button>
-        <Button onClick={navigate('/stepthree')}>Dalej</Button>
+        <Button onClick={() => navigate('/stepone')}>Wstecz</Button>
+        <Button onClick={() => navigate('/stepthree')}>Dalej</Button>
       </Box>
     </>
   );

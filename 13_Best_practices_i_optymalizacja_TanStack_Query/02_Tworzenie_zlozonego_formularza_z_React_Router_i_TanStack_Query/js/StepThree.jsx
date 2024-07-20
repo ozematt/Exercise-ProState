@@ -1,52 +1,54 @@
 import { Button } from '@mui/material';
-import { useFormContext } from './FormContext.jsx';
-import { Link } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
+import { useFormContext } from 'react-hook-form';
 
 export const StepThree = () => {
-  const { state, onSubmit } = useFormContext();
+  const { getValues, handleSubmit } = useFormContext();
+  const navigate = useNavigate();
+
   return (
     <>
       <h4>Podsumowanie i potwierdzenie:</h4>
+
       <div>
         <h5>Dane Osobowe:</h5>
         <p>
           <b>Imię: </b>
-          {state.name}
+          {getValues().name}
         </p>
         <p>
           <b>Nazwisko: </b>
-          {state.surname}
+          {getValues().surname}
         </p>
         <p>
           <b>Email: </b>
-          {state.email}
+          {getValues().email}
         </p>
-        <Link to="/">
-          <Button>Edytuj</Button>
-        </Link>
+
+        <Button onClick={() => navigate('/')}>Edytuj</Button>
       </div>
       <div>
         <h5>Adres:</h5>
         <p>
           <b>Ulica: </b>
-          {state.street}
+          {getValues().street}
         </p>
         <p>
           <b>Numer domu: </b>
-          {state.houseNumber}
+          {getValues().houseNumber}
         </p>
         <p>
           <b>Miasto: </b>
-          {state.city}
+          {getValues().city}
         </p>
         <p>
           <b>Kod pocztowy: </b>
-          {state.postalCode}
+          {getValues().postalCode}
         </p>
-        <Link to="/steptwo">
-          <Button>Edytuj</Button>
-        </Link>
       </div>
+      <Button onClick={() => navigate('/steptwo')}>Edytuj</Button>
+
       <Button>Wyślij</Button>
     </>
   );
