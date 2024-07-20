@@ -1,31 +1,42 @@
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
-import { useFormContext } from './FormContext.jsx';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { schema } from './FormContext.jsx';
-
+import { useFormContext } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 export const StepOne = () => {
-  const { register, handleSubmit } = useForm({ resolver: zodResolver(schema) });
-  const { state } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const navigate = useNavigate();
+
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
-      >
-        <h4>Dane Osobowe:</h4>
-        <TextField {...register('name')} type="text" placeholder="Imię" defaultValue={state.name} />
-        <TextField {...register('surname')} type="text" placeholder="Nazwisko" defaultValue={state.surname} />
-        <TextField {...register('email')} type="email" placeholder="Email" defaultValue={state.email} />
-        <Link to="/steptwo">
-          <Button type="submit">Dalej</Button>
-        </Link>
-      </form>
+      <h4>Dane Osobowe:</h4>
+      <TextField
+        {...register('name')}
+        label="Name"
+        error={!!errors.name}
+        helperText={errors.name?.message}
+        type="text"
+        placeholder="Imię"
+      />
+      <TextField
+        {...register('surname')}
+        label="Surname"
+        error={!!errors.surname}
+        helperText={errors.surname?.message}
+        type="text"
+        placeholder="Nazwisko"
+      />
+      <TextField
+        {...register('email')}
+        label="Email"
+        error={!!errors.email}
+        helperText={errors.email?.message}
+        type="email"
+        placeholder="Email"
+      />
+      <Button onClick={() => navigate('/steptwo')}>Dalej</Button>
     </>
   );
 };
