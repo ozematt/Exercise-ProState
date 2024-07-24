@@ -3,15 +3,17 @@ import { createContext, useContext, useState } from 'react';
 const FormContext = createContext();
 
 export const FormProvider = ({ children }) => {
-  //initial state is that what is in local storage
+  //
+  //initial state is that what is saved under the 'data' key in local storage,
   const [data, setData] = useState(() => JSON.parse(localStorage.getItem('data')));
+
   //handle add new data
   const handleAddData = (newData) => {
     const newDataSet = { ...data, ...newData };
     setData(newDataSet);
     localStorage.setItem('data', JSON.stringify(newDataSet));
   };
-
+  //clear data
   const clearData = () => {
     localStorage.removeItem('data');
     setData(null);
