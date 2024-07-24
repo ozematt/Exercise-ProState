@@ -3,10 +3,11 @@ import { createContext, useContext, useState } from 'react';
 const FormContext = createContext();
 
 export const FormProvider = ({ children }) => {
-  //
+  ////DATA
   //initial state is that what is saved under the 'data' key in local storage,
   const [data, setData] = useState(() => JSON.parse(localStorage.getItem('data')));
 
+  ////LOGIC
   //handle add new data
   const handleAddData = (newData) => {
     const newDataSet = { ...data, ...newData };
@@ -19,6 +20,7 @@ export const FormProvider = ({ children }) => {
     setData(null);
   };
 
+  ////UI
   return (
     <FormContext.Provider
       value={{
@@ -31,7 +33,7 @@ export const FormProvider = ({ children }) => {
     </FormContext.Provider>
   );
 };
-
+//
 export const useFormContext = () => {
   const context = useContext(FormContext);
   if (!context) {
