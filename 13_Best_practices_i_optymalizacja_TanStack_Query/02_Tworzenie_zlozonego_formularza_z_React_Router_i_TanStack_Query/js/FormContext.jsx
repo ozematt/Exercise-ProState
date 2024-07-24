@@ -3,8 +3,9 @@ import { createContext, useContext, useState } from 'react';
 const FormContext = createContext();
 
 export const FormProvider = ({ children }) => {
+  //initial state is that what is in local storage
   const [data, setData] = useState(() => JSON.parse(localStorage.getItem('data')));
-
+  //handle add new data
   const handleAddData = (newData) => {
     const newDataSet = { ...data, ...newData };
     setData(newDataSet);

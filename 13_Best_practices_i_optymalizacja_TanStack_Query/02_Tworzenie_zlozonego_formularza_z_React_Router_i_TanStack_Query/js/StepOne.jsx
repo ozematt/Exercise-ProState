@@ -4,6 +4,7 @@ import { useFormContext } from './FormContext';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+//making schema for each step
 const schema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),

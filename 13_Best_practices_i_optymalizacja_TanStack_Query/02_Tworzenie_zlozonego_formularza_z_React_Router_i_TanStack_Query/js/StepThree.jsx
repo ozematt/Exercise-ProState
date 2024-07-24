@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useFormContext } from './FormContext';
 
 const sendFormData = async (formData) => {
-  const response = await fetch('http://localhost:3001/form', {
+  const response = await fetch('http://localhost:3001/formData', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
