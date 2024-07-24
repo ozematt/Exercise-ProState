@@ -4,6 +4,7 @@ import { useFormContext } from './FormContext';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+//making schema for each step
 const schema = z.object({
   street: z.string().min(1),
   houseNumber: z.string().min(1),
@@ -12,18 +13,27 @@ const schema = z.object({
 });
 
 export const StepTwo = () => {
+  ////DATA
+  //use context
   const { handleAddData, data } = useFormContext();
-  const { register, handleSubmit } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: data,
-  });
-  const navigate = useNavigate();
 
+  //added useForm to register fields,
+  // added defaultsValues with state data,
+  // added zod schema
+  const { register, handleSubmit } = useForm({
+    defaultValues: data,
+    resolver: zodResolver(schema),
+  });
+  //navigate
+  const navigate = useNavigate();
+  ////LOGIC
+  //handle submit data with navigation
   const onSubmit = (data) => {
     handleAddData(data);
     navigate('/confirmation');
   };
 
+  ////UI
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input {...register('street')} placeholder="Ulica" />
