@@ -12,18 +12,28 @@ const schema = z.object({
 });
 
 export const StepOne = () => {
+  ////DATA
   const { handleAddData, data } = useFormContext();
+
+  //added useForm to register fields,
+  // added defaultsValues with state data,
+  // added zod schema
   const { register, handleSubmit } = useForm({
     defaultValues: data,
     resolver: zodResolver(schema),
   });
+
+  //navigate
   const navigate = useNavigate();
 
+  ////LOGIC
+  //handle submit data with navigate
   const onSubmit = (data) => {
     handleAddData(data);
     navigate('/address');
   };
 
+  ////UI
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input {...register('firstName')} placeholder="Imię" />
