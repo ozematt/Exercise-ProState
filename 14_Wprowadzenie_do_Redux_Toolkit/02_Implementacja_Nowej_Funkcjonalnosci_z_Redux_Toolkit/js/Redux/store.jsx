@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { fetchNotifications } from './actions.jsx';
 
 const initialState = { notifications: [], loading: false, error: null };
@@ -29,3 +29,9 @@ const notificationsSlice = createSlice({
 
 export const { clearNotifications } = notificationsSlice.actions;
 export default notificationsSlice.reducer;
+
+export const store = configureStore({
+  reducer: {
+    notifications: notificationsSlice.reducer,
+  },
+});
