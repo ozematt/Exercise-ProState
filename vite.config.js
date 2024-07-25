@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Path to exercise folder
  */
-const exercisePath = '14_Wprowadzenie_do_Redux_Toolkit/01_Rozwiazywanie_Problemow_z_Redux_Toolkit';
+const exercisePath = '14_Wprowadzenie_do_Redux_Toolkit/02_Implementacja_Nowej_Funkcjonalnosci_z_Redux_Toolkit';
 
 /**
  * Don't change those lines below
