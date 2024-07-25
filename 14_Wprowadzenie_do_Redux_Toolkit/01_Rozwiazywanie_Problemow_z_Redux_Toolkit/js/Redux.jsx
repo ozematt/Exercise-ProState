@@ -29,7 +29,7 @@ export const userSlice = createSlice({
 });
 
 const store = configureStore({
-  reducer: userSlice,
+  reducer: userSlice.reducer,
 });
 
 export default store;
