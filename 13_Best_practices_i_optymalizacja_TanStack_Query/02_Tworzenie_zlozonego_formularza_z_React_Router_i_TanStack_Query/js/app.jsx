@@ -5,6 +5,7 @@ import { StepOne } from './StepOne';
 import { StepTwo } from './StepTwo';
 import { StepThree } from './StepThree';
 import { FormProvider } from './FormContext';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
           <Route path="/confirmation" element={<StepThree />} />
         </Routes>
       </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </FormProvider>
 );
