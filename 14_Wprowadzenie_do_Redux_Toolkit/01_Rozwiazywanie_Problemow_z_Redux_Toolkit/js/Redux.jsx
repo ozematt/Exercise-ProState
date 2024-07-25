@@ -12,7 +12,7 @@ export const fetchUserData = createAsyncThunk('users/fetchById', async (userId, 
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: { data: null, loading: 'idle', error: null },
+  initialState: { data: [], loading: 'idle', error: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -20,7 +20,7 @@ export const userSlice = createSlice({
         state.loading = 'loading';
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.data.push(action.payload);
         state.loading = 'idle';
       })
       .addCase(fetchUserData.rejected, (state, action) => {
