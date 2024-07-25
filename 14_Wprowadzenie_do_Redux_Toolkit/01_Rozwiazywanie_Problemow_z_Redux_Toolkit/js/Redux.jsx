@@ -1,6 +1,6 @@
 import { configureStore, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchUserData = createAsyncThunk('users/fetchById', async (userId, { rejectWithValue }) => {
+export const fetchUserData = createAsyncThunk('users/fetchUserData', async (userId, { rejectWithValue }) => {
   try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
     if (!response.ok) throw new Error('Failed to fetch user');
@@ -12,7 +12,7 @@ export const fetchUserData = createAsyncThunk('users/fetchById', async (userId, 
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: { data: [], loading: 'idle', error: null },
+  initialState: { data: null, loading: 'idle', error: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -20,7 +20,7 @@ export const userSlice = createSlice({
         state.loading = 'loading';
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
-        state.data.push(action.payload);
+        state.data = action.payload;
         state.loading = 'idle';
       })
       .addCase(fetchUserData.rejected, (state, action) => {
@@ -31,7 +31,7 @@ export const userSlice = createSlice({
 });
 
 const store = configureStore({
-  reducer: userSlice.reducer,
+  reducer: { user: userSlice.reducer },
 });
 
 export default store;
