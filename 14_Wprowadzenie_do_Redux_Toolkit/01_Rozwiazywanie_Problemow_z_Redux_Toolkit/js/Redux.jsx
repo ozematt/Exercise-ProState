@@ -17,12 +17,14 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserData.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = 'loading';
       })
-      .addCase(fetchUserData.fulfilled, (state, action) => {})
+      .addCase(fetchUserData.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.loading = 'idle';
+      })
       .addCase(fetchUserData.rejected, (state, action) => {
-        state.loading = false;
+        state.loading = 'idle';
         state.error = action.payload;
       });
   },
