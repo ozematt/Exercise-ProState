@@ -15,6 +15,9 @@ export const Products = () => {
     const modifiedData = { ...data, id: Date.now() };
     dispatch(addProduct(modifiedData));
   };
+  const handleRemoveProduct = (id) => {
+    dispatch(removeProduct(id));
+  };
 
   return (
     <>
@@ -29,7 +32,15 @@ export const Products = () => {
         Lista:
         <ul>
           {products.map((product) => (
-            <li key={product.id}>{product.productName}</li>
+            <div key={product.id}>
+              <li> {product.productName}</li>
+              <Button variant="contained" onClick={dispatch(updateProduct(product.id))}>
+                Edytuj
+              </Button>
+              <Button variant="contained" onClick={() => handleRemoveProduct(product.id)}>
+                Usuń
+              </Button>
+            </div>
           ))}
         </ul>
       </div>
