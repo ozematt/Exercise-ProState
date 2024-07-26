@@ -2,7 +2,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 
 const productsAdapter = createEntityAdapter({
-  selectId: (product) => product.id,
+  selectId: (product) => product.id, //
 });
 
 export const productsSlice = createSlice({

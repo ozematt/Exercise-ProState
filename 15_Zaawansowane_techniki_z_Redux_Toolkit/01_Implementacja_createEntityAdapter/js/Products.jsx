@@ -5,15 +5,16 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
 export const Products = () => {
-  // Tutaj implementacja logiki komponentu, np. formularze do dodawania/edycji produktów
+  ////DATA
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
-
+  //state for edited field
   const [editingProductId, setEditingProductId] = useState(null);
   const [editingProductName, setEditingProductName] = useState('');
 
-  const { register, reset, handleSubmit, getValues } = useForm();
+  const { register, reset, handleSubmit } = useForm();
 
+  ////LOGIC
   const onSubmit = (data) => {
     const modifiedData = { ...data, id: Date.now() };
     dispatch(addProduct(modifiedData));
@@ -36,6 +37,7 @@ export const Products = () => {
     }
   };
 
+  ////UI
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
