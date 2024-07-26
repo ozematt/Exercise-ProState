@@ -21,6 +21,7 @@ export const Products = () => {
     dispatch(removeProduct(id));
   };
   const handleUpdateProduct = (id) => {
+    setEdited(!edited);
     const updatedProduct = {
       id,
       changes: {
