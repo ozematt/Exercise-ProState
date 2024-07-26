@@ -9,8 +9,11 @@ const counterSlice = createSlice({
     decrement: (state) => state - 1,
   },
 });
+export const { increment, decrement } = counterSlice.actions;
 
-const store = configureStore({
-  reducer: {},
+export const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loggerMiddleware),
 });
