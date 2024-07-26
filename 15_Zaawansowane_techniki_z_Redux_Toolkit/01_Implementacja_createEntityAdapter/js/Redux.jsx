@@ -1,6 +1,9 @@
 import { configureStore, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createEntityAdapter } from '@reduxjs/toolkit/src';
 
-const productsAdapter = {};
+const productsAdapter = createEntityAdapter({
+  selectId: (product) => product.id,
+});
 
 export const productsSlice = createSlice({
   name: 'products',
