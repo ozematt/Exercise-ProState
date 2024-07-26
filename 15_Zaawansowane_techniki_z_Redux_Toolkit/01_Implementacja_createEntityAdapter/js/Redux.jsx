@@ -1,5 +1,5 @@
-import { configureStore, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createEntityAdapter } from '@reduxjs/toolkit/src';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { createEntityAdapter } from '@reduxjs/toolkit';
 
 const productsAdapter = createEntityAdapter({
   selectId: (product) => product.id,
@@ -15,9 +15,11 @@ export const productsSlice = createSlice({
   },
 });
 
+export const { selectAll: selectAllProducts } = productsAdapter.getSelectors((state) => state.products);
+
 const store = configureStore({
   reducer: {
-    products: productsSlice,
+    products: productsSlice.reducer,
   },
 });
 
