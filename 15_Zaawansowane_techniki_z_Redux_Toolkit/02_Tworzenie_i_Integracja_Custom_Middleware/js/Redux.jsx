@@ -3,7 +3,7 @@ import { loggerMiddleware } from './loggerMiddleware.js';
 
 const counterSlice = createSlice({
   name: 'counter',
-  initialState: {},
+  initialState: 0,
   reducers: {
     increment: (state) => state + 1,
     decrement: (state) => state - 1,
