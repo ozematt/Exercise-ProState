@@ -29,12 +29,12 @@ export const Products = () => {
   //handle edit field
   const handleEditClick = (product) => {
     if (editingProductId === product.id) {
-      // Zatwierdzenie edycji
+      // edit approval
       dispatch(updateProduct({ id: product.id, changes: { productName: editingProductName } }));
       setEditingProductId(null);
       setEditingProductName('');
     } else {
-      // Rozpoczęcie edycji
+      // action start
       setEditingProductId(product.id);
       setEditingProductName(product.productName);
     }
