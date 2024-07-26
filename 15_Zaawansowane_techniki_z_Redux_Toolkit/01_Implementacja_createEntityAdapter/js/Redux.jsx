@@ -8,7 +8,11 @@ const productsAdapter = createEntityAdapter({
 export const productsSlice = createSlice({
   name: 'products',
   initialState: productsAdapter.getInitialState(),
-  reducers: {},
+  reducers: {
+    addProduct: productsAdapter.addOne,
+    removeProduct: productsAdapter.removeOne,
+    updateProduct: productsAdapter.updateOne,
+  },
 });
 
 const store = configureStore({
@@ -17,6 +21,6 @@ const store = configureStore({
   },
 });
 
-export const { productAdded, productRemoved, productUpdated } = productsSlice.actions;
+export const { addProduct, removeProduct, updateProduct } = productsSlice.actions;
 
 export default store;
