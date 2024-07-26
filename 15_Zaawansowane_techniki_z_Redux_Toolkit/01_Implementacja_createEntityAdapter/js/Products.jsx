@@ -11,19 +11,22 @@ export const Products = () => {
   //state for edited field
   const [editingProductId, setEditingProductId] = useState(null);
   const [editingProductName, setEditingProductName] = useState('');
-
+  //useForm
   const { register, reset, handleSubmit } = useForm();
 
   ////LOGIC
+  //submit data
   const onSubmit = (data) => {
-    const modifiedData = { ...data, id: Date.now() };
+    const modifiedData = { ...data, id: Date.now() }; //added id to data
     dispatch(addProduct(modifiedData));
-    reset();
+    reset(); // reset field from useForm
   };
+  //remove product
   const handleRemoveProduct = (id) => {
     dispatch(removeProduct(id));
   };
 
+  //handle edit field
   const handleEditClick = (product) => {
     if (editingProductId === product.id) {
       // Zatwierdzenie edycji
