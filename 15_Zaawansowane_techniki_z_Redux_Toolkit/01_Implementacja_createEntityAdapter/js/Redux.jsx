@@ -15,7 +15,11 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { selectAll: selectAllProducts } = productsAdapter.getSelectors((state) => state.products);
+export const {
+  selectAll: selectAllProducts,
+  selectById: selectProductById,
+  selectIds: selectProductIds,
+} = productsAdapter.getSelectors((state) => state.products);
 
 const store = configureStore({
   reducer: {
