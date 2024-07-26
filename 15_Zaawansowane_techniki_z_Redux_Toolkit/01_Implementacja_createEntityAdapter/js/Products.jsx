@@ -11,8 +11,9 @@ export const Products = () => {
 
   const { register, handleSubmit, getValues } = useForm();
 
-  const onSubmit = () => {
-    dispatch(addProduct());
+  const onSubmit = (data) => {
+    const modifiedData = { ...data, id: Date.now() };
+    dispatch(addProduct(modifiedData));
   };
 
   return (
@@ -24,7 +25,14 @@ export const Products = () => {
           Dodaj produkt
         </Button>
       </form>
-      <div>Lista:</div>
+      <div>
+        Lista:
+        <ul>
+          {products.map((product) => (
+            <li key={product.id}>{product.productName}</li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 };
