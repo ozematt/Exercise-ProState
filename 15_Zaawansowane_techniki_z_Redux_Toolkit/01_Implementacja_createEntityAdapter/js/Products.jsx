@@ -8,7 +8,7 @@ export const Products = () => {
   ////DATA
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
-  //state for edited field
+  //state for edited field, with name and id
   const [editingProductId, setEditingProductId] = useState(null);
   const [editingProductName, setEditingProductName] = useState('');
   //useForm
@@ -31,10 +31,11 @@ export const Products = () => {
     if (editingProductId === product.id) {
       // edit approval
       dispatch(updateProduct({ id: product.id, changes: { productName: editingProductName } }));
+      //reset edit state
       setEditingProductId(null);
       setEditingProductName('');
     } else {
-      // action start
+      // action start, set edited element id and name
       setEditingProductId(product.id);
       setEditingProductName(product.productName);
     }
