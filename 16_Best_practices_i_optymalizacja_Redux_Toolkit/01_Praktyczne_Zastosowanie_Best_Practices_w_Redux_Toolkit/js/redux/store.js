@@ -15,7 +15,9 @@ const taskSlice = createSlice({
   },
 });
 
-const store = configureStore({
+export const { addTask, removeTask, updateTask } = taskSlice.actions;
+
+export const store = configureStore({
   reducers: taskSlice.reducer,
 });
 
