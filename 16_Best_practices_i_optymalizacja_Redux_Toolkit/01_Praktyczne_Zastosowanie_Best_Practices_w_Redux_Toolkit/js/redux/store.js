@@ -17,11 +17,9 @@ const taskSlice = createSlice({
 
 export const { addTask, removeTask, updateTask } = taskSlice.actions;
 
-export const {
-  selectAll: selectAllTasks,
-  selectById: selectTaskById,
-  selectIds: selectTaskIds,
-} = taskAdepter.getSelectors((state) => state.tasks);
+export const { selectAll: selectAllTasks, selectById: selectTaskById } = taskAdepter.getSelectors(
+  (state) => state.tasks
+);
 
 export const store = configureStore({
   reducers: taskSlice.reducer,
