@@ -5,18 +5,11 @@ export const TestComponent = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.counter);
 
-  const handleIncrement = () => {
-    dispatch(increment());
-  };
-  const handleDecrement = () => {
-    dispatch(decrement());
-  };
-
   return (
     <>
       <p>{state}</p>
-      <button onClick={handleIncrement}>+</button>
-      <button onClick={handleDecrement}>-</button>
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
     </>
   );
 };
