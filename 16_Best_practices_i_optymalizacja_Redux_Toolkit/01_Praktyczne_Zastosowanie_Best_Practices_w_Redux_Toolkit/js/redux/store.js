@@ -1,6 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tasksReducer from './tasksReducer';
+import { createEntityAdapter } from '@reduxjs/toolkit';
 
-const store = ;
+const taskAdepter = createEntityAdapter({
+  selectId: (task) => task.id,
+});
+
+const store = configureStore({});
 
 export default store;
