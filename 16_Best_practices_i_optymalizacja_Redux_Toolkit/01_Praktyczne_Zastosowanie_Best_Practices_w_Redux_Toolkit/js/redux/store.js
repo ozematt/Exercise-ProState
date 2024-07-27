@@ -15,6 +15,8 @@ const taskSlice = createSlice({
   },
 });
 
-const store = configureStore({});
+const store = configureStore({
+  reducers: taskSlice.reducer,
+});
 
 export default store;
