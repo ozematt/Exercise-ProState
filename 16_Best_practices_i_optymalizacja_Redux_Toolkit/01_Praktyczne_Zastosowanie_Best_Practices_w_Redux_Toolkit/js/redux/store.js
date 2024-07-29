@@ -2,7 +2,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 
 const taskAdepter = createEntityAdapter({
-  selectId: (task) => task.id,
+  sortComparer: (a, b) => b.completed - a.completed,
 });
 
 const initialState = taskSlice.getInitialState();
