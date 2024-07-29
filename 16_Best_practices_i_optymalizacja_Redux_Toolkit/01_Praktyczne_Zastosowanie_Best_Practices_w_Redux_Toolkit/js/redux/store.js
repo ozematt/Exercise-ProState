@@ -19,8 +19,6 @@ const taskSlice = createSlice({
   },
 });
 
-const selectTasks = (state) => state.tasks;
-console.log(selectTasks());
 export const { addTask, removeTask, updateTask } = taskSlice.actions;
 
 export const { selectAll: selectAllTasks } = taskAdepter.getSelectors((state) => state.tasks);
@@ -29,5 +27,5 @@ export const store = configureStore({
   reducers: taskSlice.reducer,
 });
 
-// git add .
-// git commit -m "
+const selectTasks = (state) => state.tasks;
+console.log(selectTasks);

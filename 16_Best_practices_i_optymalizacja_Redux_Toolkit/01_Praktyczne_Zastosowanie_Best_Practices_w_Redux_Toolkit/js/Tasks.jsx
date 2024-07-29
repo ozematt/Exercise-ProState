@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, removeTask, toggleTask } from './redux/actions';
 
 export const Tasks = () => {
   const [newTask, setNewTask] = useState('');
@@ -8,18 +7,18 @@ export const Tasks = () => {
   const completedTasks = [];
   const dispatch = useDispatch();
 
-  const handleAddTask = () => {
-    if (newTask) {
-      dispatch(
-        addTask({
-          id: Math.floor(Math.random() * 1000),
-          title: newTask,
-          completed: false,
-        })
-      );
-      setNewTask('');
-    }
-  };
+  // const handleAddTask = () => {
+  //   if (newTask) {
+  //     dispatch(
+  //       addTask({
+  //         id: Math.floor(Math.random() * 1000),
+  //         title: newTask,
+  //         completed: false,
+  //       })
+  //     );
+  //     setNewTask('');
+  //   }
+  // };
 
   return (
     <div>
@@ -30,19 +29,19 @@ export const Tasks = () => {
         onChange={(e) => setNewTask(e.target.value)}
         placeholder="Dodaj nowe zadanie"
       />
-      <button onClick={handleAddTask}>Dodaj Zadanie</button>
+      <button>Dodaj Zadanie</button>
       <ul>
-        {tasks.map((task) => (
+        {tasks?.map((task) => (
           <li key={task.id}>
-            <input type="checkbox" checked={task.completed} onChange={() => dispatch(toggleTask(task.id))} />
+            <input type="checkbox" checked={task.completed} />
             {task.title}
-            <button onClick={() => dispatch(removeTask(task.id))}>Usuń</button>
+            <button>Usuń</button>
           </li>
         ))}
       </ul>
       <h2>Zakończone zadania</h2>
       <ul>
-        {completedTasks.map((task) => (
+        {completedTasks?.map((task) => (
           <li key={task.id}>{task.title}</li>
         ))}
       </ul>

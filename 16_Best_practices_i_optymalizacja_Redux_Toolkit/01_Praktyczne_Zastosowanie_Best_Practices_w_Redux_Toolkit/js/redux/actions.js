@@ -1,14 +1,14 @@
-export const addTask = (task) => ({
+const addTask = (task) => ({
   type: 'tasks/addTask',
   payload: task,
 });
 
-export const removeTask = (taskId) => ({
+const removeTask = (taskId) => ({
   type: 'tasks/removeTask',
   payload: taskId,
 });
 
-export const toggleTask = (taskId) => ({
+const toggleTask = (taskId) => ({
   type: 'tasks/toggleTask',
   payload: taskId,
 });

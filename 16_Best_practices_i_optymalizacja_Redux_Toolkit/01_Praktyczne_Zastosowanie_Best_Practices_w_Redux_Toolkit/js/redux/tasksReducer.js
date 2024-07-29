@@ -23,5 +23,3 @@ function tasksReducer(state = initialState, action) {
       return state;
   }
 }
-
-export default tasksReducer;
