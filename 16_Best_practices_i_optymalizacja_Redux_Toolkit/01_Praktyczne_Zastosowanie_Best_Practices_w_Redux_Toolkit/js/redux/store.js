@@ -23,7 +23,7 @@ const taskSlice = createSlice({
   },
 });
 
-export const { addTask, removeTask, updateTask } = taskSlice.actions;
+export const { addTask, removeTask, updateTask, toggleTask } = taskSlice.actions;
 
 export const { selectAll: selectAllTasks, selectById: selectTaskById } = taskAdepter.getSelectors(
   (state) => state.tasks

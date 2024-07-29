@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, selectCompletedTasks } from './redux/store.js';
+import { addTask, selectAllTasks, selectCompletedTasks, toggleTask } from './redux/store.js';
 
 export const Tasks = () => {
   const [newTask, setNewTask] = useState('');
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector(selectAllTasks);
   const completedTasks = useSelector(selectCompletedTasks);
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ export const Tasks = () => {
       <ul>
         {tasks?.map((task) => (
           <li key={task.id}>
-            <input type="checkbox" checked={task.completed} />
+            <input type="checkbox" checked={task.completed} onChange={() => dispatch(toggleTasktask.id))}/>
             {task.title}
             <button>Usuń</button>
           </li>
