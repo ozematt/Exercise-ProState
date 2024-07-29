@@ -19,6 +19,8 @@ const taskSlice = createSlice({
   },
 });
 
+const selectTask = (state) => state.tasks;
+
 export const { addTask, removeTask, updateTask } = taskSlice.actions;
 
 export const { selectAll: selectAllTasks } = taskAdepter.getSelectors((state) => state.tasks);
@@ -28,3 +30,6 @@ export const store = configureStore({
 });
 
 export default store;
+
+// git add .
+// git commit -m "
