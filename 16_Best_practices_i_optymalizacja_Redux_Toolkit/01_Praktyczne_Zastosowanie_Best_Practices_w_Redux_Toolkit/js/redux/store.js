@@ -11,7 +11,7 @@ const initialState = {
 
 const taskSlice = createSlice({
   name: 'tasks',
-  initialState: 0,
+  initialState,
   reducers: {
     addTask: taskAdepter.addOne,
     removeTask: taskAdepter.removeOne,
