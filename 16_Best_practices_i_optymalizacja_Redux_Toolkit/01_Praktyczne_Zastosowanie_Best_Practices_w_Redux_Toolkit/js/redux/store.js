@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSelector, createSlice } from '@reduxjs/toolkit';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 
 const taskAdepter = createEntityAdapter({
@@ -26,6 +26,8 @@ const taskSlice = createSlice({
 export const { addTask, removeTask, updateTask } = taskSlice.actions;
 
 export const { selectAll: selectAllTasks, selectById: selectTaskById } = taskAdepter.getSelectors((state) => state.tasks);
+
+export const selectCompletedTasks = createSelector(selectAllTasks, (tasks) => tasks.filter((task) => task.completed));
 
 export const store = configureStore({
   reducers: taskSlice.reducer,
