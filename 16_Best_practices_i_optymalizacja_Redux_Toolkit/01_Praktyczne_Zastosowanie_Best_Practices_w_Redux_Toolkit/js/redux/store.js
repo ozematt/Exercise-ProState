@@ -5,6 +5,10 @@ const taskAdepter = createEntityAdapter({
   selectId: (task) => task.id,
 });
 
+const initialState = {
+  tasks: [],
+};
+
 const taskSlice = createSlice({
   name: 'tasks',
   initialState: 0,
