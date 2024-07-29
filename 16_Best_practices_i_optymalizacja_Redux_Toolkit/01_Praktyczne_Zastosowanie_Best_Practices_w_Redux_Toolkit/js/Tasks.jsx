@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask } from './redux/store.js';
+import { addTask, selectCompletedTasks } from './redux/store.js';
 
 export const Tasks = () => {
   const [newTask, setNewTask] = useState('');
   const tasks = useSelector((state) => state.tasks);
-  const completedTasks = [];
+  const completedTasks = useSelector(selectCompletedTasks);
   const dispatch = useDispatch();
 
   const handleAddTask = () => {
