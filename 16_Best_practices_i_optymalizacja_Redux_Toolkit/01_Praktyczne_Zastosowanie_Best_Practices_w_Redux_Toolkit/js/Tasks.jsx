@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { addTask } from './redux/store.js';
 
 export const Tasks = () => {
   const [newTask, setNewTask] = useState('');
@@ -7,18 +8,18 @@ export const Tasks = () => {
   const completedTasks = [];
   const dispatch = useDispatch();
 
-  // const handleAddTask = () => {
-  //   if (newTask) {
-  //     dispatch(
-  //       addTask({
-  //         id: Math.floor(Math.random() * 1000),
-  //         title: newTask,
-  //         completed: false,
-  //       })
-  //     );
-  //     setNewTask('');
-  //   }
-  // };
+  const handleAddTask = () => {
+    if (newTask) {
+      dispatch(
+        addTask({
+          id: Math.floor(Math.random() * 1000),
+          title: newTask,
+          completed: false,
+        })
+      );
+      setNewTask('');
+    }
+  };
 
   return (
     <div>
@@ -29,7 +30,7 @@ export const Tasks = () => {
         onChange={(e) => setNewTask(e.target.value)}
         placeholder="Dodaj nowe zadanie"
       />
-      <button>Dodaj Zadanie</button>
+      <button onClick={handleAddTask}>Dodaj Zadanie</button>
       <ul>
         {tasks?.map((task) => (
           <li key={task.id}>

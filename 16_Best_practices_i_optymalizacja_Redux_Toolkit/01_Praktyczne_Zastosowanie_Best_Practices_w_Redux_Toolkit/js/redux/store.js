@@ -14,6 +14,12 @@ const taskSlice = createSlice({
     addTask: taskAdepter.addOne,
     removeTask: taskAdepter.removeOne,
     updateTask: taskAdepter.updateOne,
+    toggleTask: (state, action) => {
+      const task = state.entities[action.payload];
+      if (task) {
+        task.completed = !task.completed;
+      }
+    },
   },
 });
 
