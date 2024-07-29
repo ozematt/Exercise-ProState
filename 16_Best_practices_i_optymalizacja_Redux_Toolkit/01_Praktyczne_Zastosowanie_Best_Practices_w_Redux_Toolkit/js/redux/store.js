@@ -5,9 +5,7 @@ const taskAdepter = createEntityAdapter({
   selectId: (task) => task.id,
 });
 
-const initialState = {
-  tasks: [],
-};
+const initialState = taskSlice.getInitialState();
 
 const taskSlice = createSlice({
   name: 'tasks',
@@ -29,3 +27,5 @@ export const store = configureStore({
 
 const selectTasks = (state) => state.tasks;
 console.log(selectTasks);
+
+const
