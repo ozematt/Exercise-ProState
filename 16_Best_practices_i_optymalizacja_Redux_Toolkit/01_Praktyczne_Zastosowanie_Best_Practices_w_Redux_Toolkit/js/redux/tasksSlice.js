@@ -7,10 +7,15 @@ const taskAdepter = createEntityAdapter({
 export const taskSlice = createSlice({
   name: 'tasks',
   initialState: taskAdepter.getInitialState(),
+  // this is how state looks like
+  //   "ids": [],
+  //   "entities": {},
   reducers: {
+    // default fn
     addTask: taskAdepter.addOne,
     removeTask: taskAdepter.removeOne,
     updateTask: taskAdepter.updateOne,
+    //
     toggleTask: (state, action) => {
       const task = state.entities[action.payload];
       if (task) {
