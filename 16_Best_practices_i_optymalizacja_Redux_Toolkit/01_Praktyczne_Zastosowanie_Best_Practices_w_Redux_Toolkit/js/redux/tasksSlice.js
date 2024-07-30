@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 
 const taskAdepter = createEntityAdapter({
+  //sorted fn, tasks that are completed will be higher in the order
   sortComparer: (a, b) => b.completed - a.completed,
 });
 
@@ -28,7 +29,7 @@ export const taskSlice = createSlice({
 // export reducers
 export const { addTask, removeTask, updateTask, toggleTask } = taskSlice.actions;
 
-// get selectors
+// get selectors - default fn
 export const { selectAll: selectAllTasks, selectById: selectTaskById } = taskAdepter.getSelectors(
   (state) => state.tasks
 );
