@@ -25,14 +25,20 @@ export const taskSlice = createSlice({
   },
 });
 
+// export reducers
 export const { addTask, removeTask, updateTask, toggleTask } = taskSlice.actions;
 
+// get selectors
 export const { selectAll: selectAllTasks, selectById: selectTaskById } = taskAdepter.getSelectors(
   (state) => state.tasks
 );
 
-// return all completed tasks
+/**
+ * return all completed tasks
+ */
 export const selectCompletedTasks = createSelector(selectAllTasks, (tasks) => tasks.filter((task) => task.completed));
 
-//preferred export
+/**
+ * preferred export
+ */
 export default taskSlice.reducer;
