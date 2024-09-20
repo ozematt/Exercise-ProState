@@ -12,20 +12,6 @@ export const Tasks = () => {
   const dispatch = useDispatch();
 
   //added new Task
-  const handleAddTask = () => {
-    if (newTask) {
-      dispatch(
-        //dispatch addTask, make structure of task
-        addTask({
-          id: Math.floor(Math.random() * 1000),
-          title: newTask,
-          completed: false,
-        })
-      );
-      //reset state
-      setNewTask('');
-    }
-  };
 
   return (
     <div>
